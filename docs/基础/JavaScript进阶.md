@@ -2492,7 +2492,7 @@ Handle<Map> map = ComputeObjectLiteralMap(context, constant_properties,
 ```
 
 把这个申请后的Map打印出来：
-
+```js
 > ../../v8/src/heap/[http://heap.cc](http://heap.cc/) 3472 map is
 > 0x21528af9cb39: [Map]
 > – type: JS_OBJECT_TYPE
@@ -2500,6 +2500,7 @@ Handle<Map> map = ComputeObjectLiteralMap(context, constant_properties,
 > – inobject properties: 3
 > – back pointer: 0x3e2ca8902311 <undefined>
 > – instance descriptors (own) #0: 0x3e2ca8902231 <FixedArray[0]>
+```
 
 从第4行加粗字体可以看到，它的大小确实和我们算的一样。并且它还有一个叫做descriptors表示它的数据结构。descriptor记录了每个key-value对，以及它们在FixedArray里面的index. 后续对properties的操作基本上通过descriptor进行。
 
