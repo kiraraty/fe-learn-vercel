@@ -15,7 +15,7 @@ export default function Home() {
       <Layout
         // title={`${siteConfig.title}`}
         title="Home"
-        description="Wiki知识库/vscode/javascript/软件/工具"
+        description="Wiki"
       >
         {/* <HomepageHeader /> */}
         <main>
