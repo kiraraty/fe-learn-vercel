@@ -7,13 +7,13 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "Front End Interview Handbook",
   tagline: "Front End Interview Handbook",
-  url: "https://101.201.55.238/",
+  url: "https://www.xxbys.space/",
   baseUrl: "/",
-  onBrokenLinks: "log",
-  onBrokenMarkdownLinks: "warn",
+  onBrokenLinks: "ignore",
+  onBrokenMarkdownLinks: "ignore",
   favicon: "img/favicon.ico",
-  organizationName: "kiraraty", // Usually your GitHub org/user name.
-  projectName: "fe-learn-vercel", // Usually your repo name.
+  organizationName: "Xxbys", // Usually your GitHub org/user name.
+  projectName: "Front-end-Learning-Note", // Usually your repo name.
   i18n: {
     defaultLocale: "zh-cn",
     locales: ["zh-cn"],
@@ -32,12 +32,12 @@ const config = {
           routeBasePath: "/",
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl: "https://github.com/kiraraty/fe-learn-vercel",
+          editUrl: "https://github.com/Xxbys752521/Front-end-Learning-Note",
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl: "https://github.com/kiraraty/fe-learn-vercel",
+          editUrl: "https://github.com/Xxbys752521/Front-end-Learning-Note",
         },
         pages: {
           path: "src/pages",
@@ -50,23 +50,18 @@ const config = {
       }),
     ],
   ],
+  plugins: [
+    [
+      require.resolve("@cmfcmf/docusaurus-search-local"),
+      {
+        language: ["zh", "en"],
+      },
+    ],
+  ],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      algolia: {
-        // The application ID provided by Algolia
-        appId: "L4NYMVDYG7",
-
-        // Public API key: it is safe to commit it
-        apiKey: "2dc197c65a9a3bc16515f64933bb50b5",
-
-        indexName: "wiki-404lab-top",
-
-        // Optional: see doc section below
-        // contextualSearch: true,
-      },
-
       navbar: {
         title: "Front End Interview Handbook",
         logo: {
