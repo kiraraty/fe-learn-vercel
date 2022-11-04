@@ -15,7 +15,7 @@ const FeatureList = [
     // ),
   },
   {
-    title: 'Easy to Use',
+    title: '简单易用',
     Svg: require('../../static/img/undraw_docusaurus_mountain.svg').default,
     // description: <>内容可搜索,让你轻松地在文档中找到所需的内容。</>,
   },

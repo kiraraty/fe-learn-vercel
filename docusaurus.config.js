@@ -7,13 +7,13 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "Front End Interview Handbook",
   tagline: "Front End Interview Handbook",
-  url: "https://www.xxbys.space/",
+  url: "https://fe-learn-vercel.vercel.app/",
   baseUrl: "/",
   onBrokenLinks: "ignore",
   onBrokenMarkdownLinks: "ignore",
   favicon: "img/favicon.ico",
-  organizationName: "Xxbys", // Usually your GitHub org/user name.
-  projectName: "Front-end-Learning-Note", // Usually your repo name.
+  organizationName: "kiraraty", // Usually your GitHub org/user name.
+  projectName: "前端学习手册", // Usually your repo name.
   i18n: {
     defaultLocale: "zh-cn",
     locales: ["zh-cn"],
@@ -32,12 +32,12 @@ const config = {
           routeBasePath: "/",
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl: "https://github.com/Xxbys752521/Front-end-Learning-Note",
+          editUrl: "https://github.com/kiraraty/fe-learn-vercel",
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl: "https://github.com/Xxbys752521/Front-end-Learning-Note",
+          editUrl: "https://github.com/kiraraty/fe-learn-vercel",
         },
         pages: {
           path: "src/pages",
@@ -63,7 +63,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "Front End Interview Handbook",
+        title: "前端学习手册",
         logo: {
           alt: "My Site Logo",
           src: "img/favicon.ico",
@@ -87,8 +87,8 @@ const config = {
       },
       metadata: [
         {
-          name: "前端面试手册",
-          content: "Happy Codeing",
+          name: "前端学习手册",
+          content: "code for better",
         },
       ],
     }),
