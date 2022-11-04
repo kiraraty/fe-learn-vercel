@@ -1,1018 +1,1242 @@
-# HTML面试题
+---
+sidebar_position: 1
+description: HTML 相关知识和一些相关面试题
+---
 
-### 1.语义化标签
+## HTML 面试知识点总结
 
-**语义化是指根据内容的结构化（内容语义化），选择合适的标签（代码语义化）**。通俗来讲就是用正确的标签做正确的事情。
+### 目录
 
-语义化的优点如下：
+- [1. DOCTYPE 的作用是什么？](#1-doctype-的作用是什么)
+- [2. 标准模式与兼容模式各有什么区别？](#2-标准模式与兼容模式各有什么区别)
+- [3. HTML5 为什么只需要写 &lt;!DOCTYPE HTML&gt;，而不需要引入 DTD？](#3-html5-为什么只需要写-doctype-html而不需要引入-dtd)
+- [4. SGML 、 HTML 、XML 和 XHTML 的区别？](#4-sgml--html-xml-和-xhtml-的区别)
+- [5. DTD 介绍](#-5-dtd-介绍)
+- [6. 行内元素定义](#6-行内元素定义)
+- [7. 块级元素定义](#7-块级元素定义)
+- [8. 行内元素与块级元素的区别？](#8-行内元素与块级元素的区别)
+- [9. HTML5 元素的分类](#9-html5-元素的分类)
+- [10. 空元素定义](#10-空元素定义)
+- [11. link 标签定义](#11-link-标签定义)
+- [12. 页面导入样式时，使用 link 和 @import 有什么区别？](#12-页面导入样式时使用-link-和-import-有什么区别)
+- [13. 你对浏览器的理解？](#13-你对浏览器的理解)
+- [14. 介绍一下你对浏览器内核的理解？](#14-介绍一下你对浏览器内核的理解)
+- [15. 常见的浏览器内核比较](#15-常见的浏览器内核比较)
+- [16. 常见浏览器所用内核](#16-常见浏览器所用内核)
+- [17. 浏览器的渲染原理？](#17-浏览器的渲染原理)
+- [18. 渲染过程中遇到 JS 文件怎么处理？（浏览器解析过程）](#18-渲染过程中遇到-js-文件怎么处理浏览器解析过程)
+- [19. async 和 defer 的作用是什么？有什么区别？（浏览器解析过程）](#19-async-和-defer-的作用是什么有什么区别浏览器解析过程)
+- [20. 什么是文档的预解析？（浏览器解析过程）](#20-什么是文档的预解析浏览器解析过程)
+- [21. CSS 如何阻塞文档解析？（浏览器解析过程）](#21-css-如何阻塞文档解析浏览器解析过程)
+- [22. 渲染页面时常见哪些不良现象？（浏览器渲染过程）](#22-渲染页面时常见哪些不良现象浏览器渲染过程)
+- [23. 如何优化关键渲染路径？（浏览器渲染过程）](#23-如何优化关键渲染路径浏览器渲染过程)
+- [24. 什么是重绘和回流？（浏览器绘制过程）](#24-什么是重绘和回流浏览器绘制过程)
+- [25. 如何减少回流？（浏览器绘制过程）](#25-如何减少回流浏览器绘制过程)
+- [26. 为什么操作 DOM 慢？（浏览器绘制过程）](#26-为什么操作-dom-慢浏览器绘制过程)
+- [27. DOMContentLoaded 事件和 Load 事件的区别？](#27-domcontentloaded-事件和-load-事件的区别)
+- [28. HTML5 有哪些新特性、移除了那些元素？](#28-html5-有哪些新特性移除了那些元素)
+- [29. 如何处理 HTML5 新标签的浏览器兼容问题？](#29-如何处理-html5-新标签的浏览器兼容问题)
+- [30. 简述一下你对 HTML 语义化的理解？](#30-简述一下你对-html-语义化的理解)
+- [31. b 与 strong 的区别和 i 与 em 的区别？](#31-b-与-strong-的区别和-i-与-em-的区别)
+- [32. 前端需要注意哪些 SEO ？](#32-前端需要注意哪些-seo-)
+- [33. HTML5 的离线储存怎么使用，工作原理能不能解释一下？](#33-html5-的离线储存怎么使用工作原理能不能解释一下)
+- [34. 浏览器是怎么对 HTML5 的离线储存资源进行管理和加载的呢？](#34-浏览器是怎么对-html5-的离线储存资源进行管理和加载的呢)
+- [35. 常见的浏览器端的存储技术有哪些？](#35-常见的浏览器端的存储技术有哪些)
+- [36. 请描述一下 cookies，sessionStorage 和 localStorage 的区别？](#36-请描述一下-cookiessessionstorage-和-localstorage-的区别)
+- [37. iframe 有那些缺点？](#37-iframe-有那些缺点)
+- [38. Label 的作用是什么？是怎么用的？](#38-label-的作用是什么是怎么用的)
+- [39. HTML5 的 form 的自动完成功能是什么？](#39-html5-的-form-的自动完成功能是什么)
+- [40. 如何实现浏览器内多个标签页之间的通信?](#40-如何实现浏览器内多个标签页之间的通信)
+- [41. webSocket 如何兼容低版本浏览器？](#41-websocket-如何兼容低版本浏览器)
+- [42. 页面可见性（Page Visibility API） 可以有哪些用途？](#42-页面可见性page-visibility-api-可以有哪些用途)
+- [43. 如何在页面上实现一个圆形的可点击区域？](#43-如何在页面上实现一个圆形的可点击区域)
+- [44. 实现不使用 border 画出 1 px 高的线，在不同浏览器的标准模式与怪异模式下都能保持一致的效果。](#44-实现不使用-border-画出-1-px-高的线在不同浏览器的标准模式与怪异模式下都能保持一致的效果)
+- [45. title 与 h1 的区别？](#45-title-与-h1-的区别)
+- [46. &lt;img&gt; 的 title 和 alt 有什么区别？](#46-img-的-title-和-alt-有什么区别)
+- [47. Canvas 和 SVG 有什么区别？](#47-canvas-和-svg-有什么区别)
+- [48. 网页验证码是干嘛的，是为了解决什么安全问题？](#48-网页验证码是干嘛的是为了解决什么安全问题)
+- [49. 渐进增强和优雅降级的定义](#49-渐进增强和优雅降级的定义)
+- [50. attribute 和 property 的区别是什么？](#50-attribute-和-property-的区别是什么)
+- [51. 对 web 标准、可用性、可访问性的理解](#51-对-web-标准可用性可访问性的理解)
+- [52. IE 各版本和 Chrome 可以并行下载多少个资源？](#52-ie-各版本和-chrome-可以并行下载多少个资源)
+- [53. Flash、Ajax 各自的优缺点，在使用中如何取舍？](#53-flashajax-各自的优缺点在使用中如何取舍)
+- [54. 怎么重构页面？](#54-怎么重构页面)
+- [55. 浏览器架构](#55-浏览器架构)
+- [56. 常用的 meta 标签](#56-常用的-meta-标签)
+- [57. css reset 和 normalize.css 有什么区别？](#57-css-reset-和-normalizecss-有什么区别)
+- [58. 用于预格式化文本的标签是？](#58-用于预格式化文本的标签是)
+- [59. DHTML 是什么？](#59-dhtml-是什么)
+- [60. head 标签中必不少的是？](#60-head-标签中必不少的是)
+- [61. HTML5 新增的表单元素有？](#61-html5-新增的表单元素有)
+- [62. 在 HTML5 中，哪个方法用于获得用户的当前位置？](#62-在-html5-中哪个方法用于获得用户的当前位置)
+- [63. 文档的不同注释方式？](#63-文档的不同注释方式)
+- [64. disabled 和 readonly 的区别？](#64-disabled-和-readonly-的区别)
+- [65. 主流浏览器内核私有属性 css 前缀？](#65-主流浏览器内核私有属性-css-前缀)
+- [66. 前端性能优化？](#66-前端性能优化)
+- [67. Chrome 中的 Waterfall ？](#67-chrome-中的-waterfall-)
+- [68. 扫描二维码登录网页是什么原理，前后两个事件是如何联系的？](#68-扫描二维码登录网页是什么原理前后两个事件是如何联系的)
+- [69. Html 规范中为什么要求引用资源不加协议头 http 或者 https？](#69-html-规范中为什么要求引用资源不加协议头http或者https)
 
-- 对机器友好，带有语义的文字表现力丰富，更适合搜索引擎的爬虫爬取有效信息，有利于SEO。除此之外，语义类还支持读屏软件，根据文章可以自动生成目录；
+#### 1. DOCTYPE 的作用是什么？
 
-- 对开发者友好，使用语义类标签增强了可读性，结构更加清晰，开发者能清晰的看出网页的结构，便于团队的开发与维护。
+相关知识点：
 
-  ```html
-  <header></header>  头部
-  
-  <nav></nav>  导航栏
-  
-  <section></section>  区块（有语义化的div）
-  
-  <main></main>  主要区域
-  
-  <article></article>  主要内容
-  
-  <aside></aside>  侧边栏
-  
-  <footer></footer>  底部
-  ```
+```
+IE5.5 引入了文档模式的概念，而这个概念是通过使用文档类型（DOCTYPE）切换实现的。
 
-### 2.Doctype作用
+<!DOCTYPE>声明位于 HTML 文档中的第一行，处于 <html> 标签之前。告知浏览器的解析器用什么文档标准解析这个文档。
 
-DOCTYPE是HTML5中一种标准通用标记语言的文档类型声明，它的目的是**告诉浏览器（解析器）应该以什么样（html或xhtml）的文档类型定义来解析文档**，不同的渲染模式会影响浏览器对 CSS 代码甚⾄ JavaScript 脚本的解析。它必须声明在HTML⽂档的第⼀⾏。
+DOCTYPE 不存在或格式不正确会导致文档以兼容模式呈现。
+```
 
-浏览器渲染页面的两种模式（可通过document.compatMode获取，比如，语雀官网的文档类型是**CSS1Compat**）：
+回答（参考 1-5）：
 
-- **CSS1Compat：标准模式（Strick mode）**，默认模式，浏览器使用W3C的标准解析渲染页面。在标准模式中，浏览器以其支持的最高标准呈现页面。
-- **BackCompat：怪异模式(混杂模式)(Quick mode)**，浏览器使用自己的怪异模式解析渲染页面。在怪异模式中，页面以一种比较宽松的向后兼容的方式显示。
+```
+<!DOCTYPE>  声明一般位于文档的第一行，它的作用主要是告诉浏览器以什么样的模式来解析文档。一般指定了之后会以标准模式来
+进行文档解析，否则就以兼容模式进行解析。在标准模式下，浏览器的解析规则都是按照最新的标准进行解析的。而在兼容模式下，浏
+览器会以向后兼容的方式来模拟老式浏览器的行为，以保证一些老的网站的正确访问。
 
-HTML5 为什么只需要写 `<!DOCTYPE HTML>`
+在 html5 之后不再需要指定 DTD 文档，因为 html5 以前的 html 文档都是基于 SGML 的，所以需要通过指定 DTD 来定义文
+档中允许的属性以及一些规则。而 html5 不再基于 SGML 了，所以不再需要使用 DTD。
+```
 
-- `HTML5` 不基于 `SGML`，因此不需要对`DTD`进行引用，但是需要`doctype`来规范浏览器的行为
-- 而`HTML4.01`基于`SGML`,所以需要对`DTD`进行引用，才能告知浏览器文档所使用的文档类型
+#### 2. 标准模式与兼容模式各有什么区别？
+
+```
+标准模式的渲染方式和 JS 引擎的解析方式都是以该浏览器支持的最高标准运行。在兼容模式中，页面以宽松的向后兼容的方式显示
+，模拟老式浏览器的行为以防止站点无法工作。
+```
+
+#### 3. HTML5 为什么只需要写 `<!DOCTYPE HTML>`，而不需要引入 DTD？
+
+```
+HTML5 不基于 SGML，因此不需要对 DTD 进行引用，但是需要 DOCTYPE 来规范浏览器的行为（让浏览器按照它们应该的方式来运
+行）。
+
+而 HTML4.01 基于 SGML ，所以需要对 DTD 进行引用，才能告知浏览器文档所使用的文档类型。
+```
+
+#### 4. SGML 、 HTML 、XML 和 XHTML 的区别？
+
+```
+SGML（Standard Generalized Markup language）是标准通用置标语言，是一种定义电子文档结构和描述其内容的国际标准语言，是所有电子文档标记语言的起源。
+
+HTML（HyperText Markup Language）是超文本标记语言，主要是用于规定怎么显示网页。
+
+XML（Extensible Markup Language）是可扩展标记语言是未来网页语言的发展方向，XML 和 HTML 的最大区别就在于 XML 的标签是可以自己创建的，数量无限多，
+而 HTML 的标签都是固定的而且数量有限。
+
+XHTML（Extensible Hypertext Markup Language）也是现在基本上所有网页都在用的标记语言，他其实和 HTML 没什么本质的区别，标签都一样，用法也都一样，就是比 HTML
+更严格，比如标签必须都用小写，标签都必须有闭合标签等。
+```
+
+#### 5. DTD 介绍
+
+```
+DTD（ Document Type Definition 文档类型定义）是一组机器可读的规则，它们定义 XML 或 HTML 的特定版本中所有允许元
+素及它们的属性和层次关系的定义。在解析网页时，浏览器将使用这些规则检查页面的有效性并且采取相应的措施。
+
+DTD 是对 HTML 文档的声明，还会影响浏览器的渲染模式（工作模式）。
+```
+
+#### 6. 行内元素定义
+
+```
+HTML4 中，元素被分成两大类: inline （内联元素）与 block（块级元素）。一个行内元素只占据它对应标签的边框所包含的空
+间。
+
+常见的行内元素有 a b span img strong sub sup button input label select textarea
+```
+
+#### 7. 块级元素定义
+
+```
+块级元素占据其父元素（容器）的整个宽度，因此创建了一个“块”。
+
+常见的块级元素有  div ul ol li dl dt dd h1 h2 h3 h4 h5 h6 p
+```
+
+#### 8. 行内元素与块级元素的区别？
+
+```
+HTML4中，元素被分成两大类：inline （内联元素）与 block （块级元素）。
+
+（1） 格式上，默认情况下，行内元素不会以新行开始，而块级元素会新起一行。
+（2） 内容上，默认情况下，行内元素只能包含文本和其他行内元素。而块级元素可以包含行内元素和其他块级元素。
+（3） 行内元素与块级元素属性的不同，主要是盒模型属性上：行内元素设置 width 无效，height 无效（可以设置 line-hei
+     ght），设置 margin 和 padding 的上下不会对其他元素产生影响。
+```
+
+#### 9. HTML5 元素的分类
+
+```
+HTML4中，元素被分成两大类: inline（内联元素）与 block（块级元素）。但在实际的开发过程中，因为页面表现的需要，前
+端工程师经常把 inline 元素的 display 值设定为 block （比如 a 标签），也经常把 block 元素的 display 值设定为
+inline 之后更是出现了 inline-block 这一对外呈现 inline 对内呈现 block 的属性。因此，简单地把 HTML 元素划分为
+inline 与 block 已经不再符合实际需求。
+
+HTML5中，元素主要分为7类：Metadata Flow Sectioning Heading Phrasing Embedded Interactive
+```
+
+#### 10. 空元素定义
+
+```
+标签内没有内容的 HTML 标签被称为空元素。空元素是在开始标签中关闭的。
+
+常见的空元素有：br hr img input link meta
+```
+
+#### 11. link 标签定义
+
+```
+link 标签定义文档与外部资源的关系。
+
+link 元素是空元素，它仅包含属性。 此元素只能存在于 head 部分，不过它可出现任何次数。
+
+link 标签中的 rel 属性定义了当前文档与被链接文档之间的关系。常见的 stylesheet 指的是定义一个外部加载的样式表。
+```
+
+#### 12. 页面导入样式时，使用 link 和 @import 有什么区别？
+
+```
+（1）从属关系区别。 @import 是 CSS 提供的语法规则，只有导入样式表的作用；link 是 HTML 提供的标签，不仅可以加
+     载 CSS 文件，还可以定义 RSS、rel 连接属性、引入网站图标等。
+
+（2）加载顺序区别。加载页面时，link 标签引入的 CSS 被同时加载；@import 引入的 CSS 将在页面加载完毕后被加载。
+
+（3）兼容性区别。@import 是 CSS2.1 才有的语法，故只可在 IE5+ 才能识别；link 标签作为 HTML 元素，不存在兼容
+     性问题。
+
+（4）DOM 可控性区别。可以通过 JS 操作 DOM ，插入 link 标签来改变样式；由于 DOM 方法是基于文档的，无法使用 @i
+    mport 的方式插入样式。
+```
+
+#### 13. 你对浏览器的理解？
+
+```
+浏览器的主要功能是将用户选择的 web 资源呈现出来，它需要从服务器请求资源，并将其显示在浏览器窗口中，资源的格式通常
+是 HTML，也包括 PDF、image 及其他格式。用户用 URI（Uniform Resource Identifier 统一资源标识符）来指定所请
+求资源的位置。
+
+HTML 和 CSS 规范中规定了浏览器解释 html 文档的方式，由 W3C 组织对这些规范进行维护，W3C 是负责制定 web 标准的
+组织。
+
+但是浏览器厂商纷纷开发自己的扩展，对规范的遵循并不完善，这为 web 开发者带来了严重的兼容性问题。
+
+简单来说浏览器可以分为两部分，shell 和 内核。
+
+其中 shell 的种类相对比较多，内核则比较少。shell 是指浏览器的外壳：例如菜单，工具栏等。主要是提供给用户界面操作，
+参数设置等等。它是调用内核来实现各种功能的。内核才是浏览器的核心。内核是基于标记语言显示内容的程序或模块。也有一些
+ 浏览器并不区分外壳和内核。从 Mozilla 将 Gecko 独立出来后，才有了外壳和内核的明确划分。
+```
+
+#### 14. 介绍一下你对浏览器内核的理解？
+
+```
+主要分成两部分：渲染引擎和 JS 引擎。
+
+渲染引擎的职责就是渲染，即在浏览器窗口中显示所请求的内容。默认情况下，渲染引擎可以显示 html、xml 文档及图片，它也
+可以借助插件（一种浏览器扩展）显示其他类型数据，例如使用 PDF 阅读器插件，可以显示 PDF 格式。
+
+JS 引擎：解析和执行 javascript 来实现网页的动态效果。
+
+最开始渲染引擎和 JS 引擎并没有区分的很明确，后来 JS 引擎越来越独立，内核就倾向于只指渲染引擎。
+```
+
+#### 15. 常见的浏览器内核比较
+
+```
+Trident：这种浏览器内核是 IE 浏览器用的内核，因为在早期 IE 占有大量的市场份额，所以这种内核比较流行，以前有很多
+网页也是根据这个内核的标准来编写的，但是实际上这个内核对真正的网页标准支持不是很好。但是由于 IE 的高市场占有率，微
+软也很长时间没有更新 Trident 内核，就导致了 Trident 内核和 W3C 标准脱节。还有就是 Trident 内核的大量 Bug 等
+安全问题没有得到解决，加上一些专家学者公开自己认为 IE 浏览器不安全的观点，使很多用户开始转向其他浏览器。
+
+Gecko：这是 Firefox 和 Flock 所采用的内核，这个内核的优点就是功能强大、丰富，可以支持很多复杂网页效果和浏览器扩
+展接口，但是代价是也显而易见就是要消耗很多的资源，比如内存。
+
+Presto：Opera 曾经采用的就是 Presto 内核，Presto 内核被称为公认的浏览网页速度最快的内核，这得益于它在开发时的
+天生优势，在处理 JS 脚本等脚本语言时，会比其他的内核快3倍左右，缺点就是为了达到很快的速度而丢掉了一部分网页兼容性。
+
+Webkit：Webkit 是 Safari 采用的内核，它的优点就是网页浏览速度较快，虽然不及 Presto 但是也胜于 Gecko 和 Trid
+ent，缺点是对于网页代码的容错性不高，也就是说对网页代码的兼容性较低，会使一些编写不标准的网页无法正确显示。WebKit
+前身是 KDE 小组的 KHTML 引擎，可以说 WebKit 是 KHTML 的一个开源的分支。
+
+Blink：谷歌在 Chromium Blog 上发表博客，称将与苹果的开源浏览器核心 Webkit 分道扬镳，在 Chromium 项目中研发 B
+link 渲染引擎（即浏览器核心），内置于 Chrome 浏览器之中。其实 Blink 引擎就是 Webkit 的一个分支，就像 webkit 是
+KHTML 的分支一样。Blink 引擎现在是谷歌公司与 Opera Software 共同研发，上面提到过的，Opera 弃用了自己的 Presto
+内核，加入 Google 阵营，跟随谷歌一起研发 Blink。
+
+```
+
+详细的资料可以参考：
+[《浏览器内核的解析和对比》](http://www.cnblogs.com/fullhouse/archive/2011/12/19/2293455.html)
+[《五大主流浏览器内核的源起以及国内各大浏览器内核总结》](https://blog.csdn.net/Summer_15/article/details/71249203)
+
+#### 16. 常见浏览器所用内核
+
+```
+ （1） IE 浏览器内核：Trident 内核，也是俗称的 IE 内核；
+
+ （2） Chrome 浏览器内核：统称为 Chromium 内核或 Chrome 内核，以前是 Webkit 内核，现在是 Blink内核；
+
+ （3） Firefox 浏览器内核：Gecko 内核，俗称 Firefox 内核；
+
+ （4） Safari 浏览器内核：Webkit 内核；
+
+ （5） Opera 浏览器内核：最初是自己的 Presto 内核，后来加入谷歌大军，从 Webkit 又到了 Blink 内核；
+
+ （6） 360浏览器、猎豹浏览器内核：IE + Chrome 双内核；
+
+ （7） 搜狗、遨游、QQ 浏览器内核：Trident（兼容模式）+ Webkit（高速模式）；
+
+ （8） 百度浏览器、世界之窗内核：IE 内核；
+
+ （9） 2345浏览器内核：好像以前是 IE 内核，现在也是 IE + Chrome 双内核了；
+
+ （10）UC 浏览器内核：这个众口不一，UC 说是他们自己研发的 U3 内核，但好像还是基于 Webkit 和 Trident ，还有说
+      是基于火狐内核。
+```
+
+#### 17. 浏览器的渲染原理？
+
+```
+ （1）首先解析收到的文档，根据文档定义构建一棵 DOM 树，DOM 树是由 DOM 元素及属性节点组成的。
+
+ （2）然后对 CSS 进行解析，生成 CSSOM 规则树。
+
+ （3）根据 DOM 树和 CSSOM 规则树构建渲染树。渲染树的节点被称为渲染对象，渲染对象是一个包含有颜色和大小等属性的矩
+     形，渲染对象和 DOM 元素相对应，但这种对应关系不是一对一的，不可见的 DOM 元素不会被插入渲染树。还有一些 DOM
+     元素对应几个可见对象，它们一般是一些具有复杂结构的元素，无法用一个矩形来描述。
+
+ （4）当渲染对象被创建并添加到树中，它们并没有位置和大小，所以当浏览器生成渲染树以后，就会根据渲染树来进行布局（也
+     可以叫做回流）。这一阶段浏览器要做的事情是要弄清楚各个节点在页面中的确切位置和大小。通常这一行为也被称为“自动
+     重排”。
+
+ （5）布局阶段结束后是绘制阶段，遍历渲染树并调用渲染对象的 paint 方法将它们的内容显示在屏幕上，绘制使用 UI 基础组
+     件。
+
+  值得注意的是，这个过程是逐步完成的，为了更好的用户体验，渲染引擎将会尽可能早的将内容呈现到屏幕上，并不会等到所有的
+  html 都解析完成之后再去构建和布局 render 树。它是解析完一部分内容就显示一部分内容，同时，可能还在通过网络下载其
+  余内容。
+```
+
+详细资料可以参考：
+[《浏览器渲染原理》](https://juejin.im/book/5bdc715fe51d454e755f75ef/section/5bdc7207f265da613c09425d)
+[《浏览器的渲染原理简介》](https://coolshell.cn/articles/9666.html)
+[《前端必读：浏览器内部工作原理》](https://kb.cnblogs.com/page/129756/)
+[《深入浅出浏览器渲染原理》](https://blog.fundebug.com/2019/01/03/understand-browser-rendering/)
+
+#### 18. 渲染过程中遇到 JS 文件怎么处理？（浏览器解析过程）
+
+```
+ JavaScript 的加载、解析与执行会阻塞文档的解析，也就是说，在构建 DOM 时，HTML 解析器若遇到了 JavaScript，那么
+ 它会暂停文档的解析，将控制权移交给 JavaScript 引擎，等 JavaScript 引擎运行完毕，浏览器再从中断的地方恢复继续解
+ 析文档。
+
+ 也就是说，如果你想首屏渲染的越快，就越不应该在首屏就加载 JS 文件，这也是都建议将 script 标签放在 body 标签底部的
+ 原因。当然在当下，并不是说 script 标签必须放在底部，因为你可以给 script 标签添加 defer 或者 async 属性。
+```
+
+#### 19. async 和 defer 的作用是什么？有什么区别？（浏览器解析过程）
+
+```
+ （1）脚本没有 defer 或 async，浏览器会立即加载并执行指定的脚本，也就是说不等待后续载入的文档元素，读到就加载并执
+     行。
+
+ （2）defer 属性表示延迟执行引入的 JavaScript，即这段 JavaScript 加载时 HTML 并未停止解析，这两个过程是并行的。
+     当整个 document 解析完毕后再执行脚本文件，在 DOMContentLoaded 事件触发之前完成。多个脚本按顺序执行。
+
+ （3）async 属性表示异步执行引入的 JavaScript，与 defer 的区别在于，如果已经加载好，就会开始执行，也就是说它的执
+     行仍然会阻塞文档的解析，只是它的加载过程不会阻塞。多个脚本的执行顺序无法保证。
+```
+
+详细资料可以参考：
+[《defer 和 async 的区别》](https://segmentfault.com/q/1010000000640869)
+
+#### 20. 什么是文档的预解析？（浏览器解析过程）
+
+```
+ Webkit 和 Firefox 都做了这个优化，当执行 JavaScript 脚本时，另一个线程解析剩下的文档，并加载后面需要通过网络加
+ 载的资源。这种方式可以使资源并行加载从而使整体速度更快。需要注意的是，预解析并不改变 DOM 树，它将这个工作留给主解析
+ 过程，自己只解析外部资源的引用，比如外部脚本、样式表及图片。
+```
+
+#### 21. CSS 如何阻塞文档解析？（浏览器解析过程）
+
+```
+ 理论上，既然样式表不改变 DOM 树，也就没有必要停下文档的解析等待它们，然而，存在一个问题，JavaScript 脚本执行时可
+ 能在文档的解析过程中请求样式信息，如果样式还没有加载和解析，脚本将得到错误的值，显然这将会导致很多问题。
+
+ 所以如果浏览器尚未完成 CSSOM 的下载和构建，而我们却想在此时运行脚本，那么浏览器将延迟 JavaScript 脚本执行和文档
+ 的解析，直至其完成 CSSOM 的下载和构建。也就是说，在这种情况下，浏览器会先下载和构建 CSSOM，然后再执行 JavaScript，
+ 最后再继续文档的解析。
+```
+
+#### 22. 渲染页面时常见哪些不良现象？（浏览器渲染过程）
+
+```
+ FOUC：主要指的是样式闪烁的问题，由于浏览器渲染机制（比如firefox），在 CSS 加载之前，先呈现了 HTML，就会导致展示
+       出无样式内容，然后样式突然呈现的现象。会出现这个问题的原因主要是 CSS 加载时间过长，或者 CSS 被放在了文档底
+       部。
+
+ 白屏：有些浏览器渲染机制（比如chrome）要先构建 DOM 树和 CSSOM 树，构建完成后再进行渲染，如果 CSS 部分放在 HTML
+      尾部，由于 CSS 未加载完成，浏览器迟迟未渲染，从而导致白屏；也可能是把 JS 文件放在头部，脚本的加载会阻塞后面
+      文档内容的解析，从而页面迟迟未渲染出来，出现白屏问题。
+```
+
+详细资料可以参考：
+[《前端魔法堂：解秘 FOUC》](https://juejin.im/entry/58f867045c497d0058e2ff3a)
+[《白屏问题和 FOUC》](https://www.jianshu.com/p/6617efa874b0)
+
+#### 23. 如何优化关键渲染路径？（浏览器渲染过程）
+
+```
+ 为尽快完成首次渲染，我们需要最大限度减小以下三种可变因素：
+
+ （1）关键资源的数量。
+ （2）关键路径长度。
+ （3）关键字节的数量。
+
+ 关键资源是可能阻止网页首次渲染的资源。这些资源越少，浏览器的工作量就越小，对 CPU 以及其他资源的占用也就越少。
+
+ 同样，关键路径长度受所有关键资源与其字节大小之间依赖关系图的影响：某些资源只能在上一资源处理完毕之后才能开始下载，
+ 并且资源越大，下载所需的往返次数就越多。
+
+ 最后，浏览器需要下载的关键字节越少，处理内容并让其出现在屏幕上的速度就越快。要减少字节数，我们可以减少资源数（将它
+ 们删除或设为非关键资源），此外还要压缩和优化各项资源，确保最大限度减小传送大小。
+
+ 优化关键渲染路径的常规步骤如下：
+
+ （1）对关键路径进行分析和特性描述：资源数、字节数、长度。
+ （2）最大限度减少关键资源的数量：删除它们，延迟它们的下载，将它们标记为异步等。
+ （3）优化关键字节数以缩短下载时间（往返次数）。
+ （4）优化其余关键资源的加载顺序：您需要尽早下载所有关键资产，以缩短关键路径长度。
+```
+
+详细资料可以参考：
+[《优化关键渲染路径》](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/optimizing-critical-rendering-path?hl=zh-cn)
+
+#### 24. 什么是重绘和回流？（浏览器绘制过程）
+
+```
+ 重绘: 当渲染树中的一些元素需要更新属性，而这些属性只是影响元素的外观、风格，而不会影响布局的操作，比如 background
+       -color，我们将这样的操作称为重绘。
+
+ 回流：当渲染树中的一部分（或全部）因为元素的规模尺寸、布局、隐藏等改变而需要重新构建的操作，会影响到布局的操作，这样
+      的操作我们称为回流。
+
+ 常见引起回流属性和方法：
+
+ 任何会改变元素几何信息（元素的位置和尺寸大小）的操作，都会触发回流。
+
+ （1）添加或者删除可见的 DOM 元素；
+ （2）元素尺寸改变——边距、填充、边框、宽度和高度
+ （3）内容变化，比如用户在 input 框中输入文字
+ （4）浏览器窗口尺寸改变——resize事件发生时
+ （5）计算 offsetWidth 和 offsetHeight 属性
+ （6）设置 style 属性的值
+ （7）当你修改网页的默认字体时。
+
+ 回流必定会发生重绘，重绘不一定会引发回流。回流所需的成本比重绘高的多，改变父节点里的子节点很可能会导致父节点的一系列
+ 回流。
+
+```
+
+常见引起重绘属性和方法：
+
+![常见引起回流属性和方法](https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/note-14.png)
+
+常见引起回流属性和方法：
+
+![常见引起重绘属性和方法](https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/note-13.png)
+
+详细资料可以参考：
+[《浏览器的回流与重绘》](https://juejin.im/post/5a9923e9518825558251c96a)
+
+#### 25. 如何减少回流？（浏览器绘制过程）
+
+```
+ （1）使用 transform 替代 top
+
+ （2）不要把节点的属性值放在一个循环里当成循环里的变量
+
+ （3）不要使用 table 布局，可能很小的一个小改动会造成整个 table 的重新布局
+
+ （4）把 DOM 离线后修改。如：使用 documentFragment 对象在内存里操作 DOM
+
+ （5）不要一条一条地修改 DOM 的样式。与其这样，还不如预先定义好 css 的 class，然后修改 DOM 的 className。
+```
+
+#### 26. 为什么操作 DOM 慢？（浏览器绘制过程）
+
+```
+ 一些 DOM 的操作或者属性访问可能会引起页面的回流和重绘，从而引起性能上的消耗。
+```
+
+#### 27. DOMContentLoaded 事件和 Load 事件的区别？
+
+```
+ 当初始的 HTML 文档被完全加载和解析完成之后，DOMContentLoaded 事件被触发，而无需等待样式表、图像和
+ 子框架的加载完成。
+
+ Load 事件是当所有资源加载完成后触发的。
+```
+
+详细资料可以参考：
+[《DOMContentLoaded 事件 和 Load 事件的区别？》](https://www.jianshu.com/p/ca8dae435a2c)
+
+#### 28. HTML5 有哪些新特性、移除了那些元素？
+
+```
+ HTML5 现在已经不是 SGML 的子集，主要是关于图像，位置，存储，多任务等功能的增加。
+
+ 新增的有：
+
+ 绘画 canvas;
+ 用于媒介回放的 video 和 audio 元素;
+ 本地离线存储 localStorage 长期存储数据，浏览器关闭后数据不丢失;
+ sessionStorage 的数据在浏览器关闭后自动删除;
+ 语意化更好的内容元素，比如 article、footer、header、nav、section;
+ 表单控件，calendar、date、time、email、url、search;
+ 新的技术 webworker, websocket;
+ 新的文档属性 document.visibilityState
+
+ 移除的元素有：
+
+ 纯表现的元素：basefont，big，center，font, s，strike，tt，u;
+ 对可用性产生负面影响的元素：frame，frameset，noframes；
+```
+
+#### 29. 如何处理 HTML5 新标签的浏览器兼容问题？
 
 ```html
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-
-</style>
-</head>
-<body>
-
-<h1>background 属性</h1>
-
-<script></script>
-</body>
-
-</html>
+（1） IE8/IE7/IE6 支持通过 document.createElement
+方法产生的标签，可以利用这一特性让这些浏览器 支持 HTML5
+新标签，浏览器支持新标签后，还需要添加标签默认的样式。 （2）
+当然也可以直接使用成熟的框架，比如 html5shiv ; `<!--[if lt IE 9]>
+  <script>
+    src = "https://cdn.jsdelivr.net/npm/html5shiv/dist/html5shiv.min.js";
+  </script> <!
+[endif]-->` [if lte IE 9]……[endif] 判断 IE 的版本，限定只有 IE9
+以下浏览器版本需要执行的语句。
 ```
 
+#### 30. 简述一下你对 HTML 语义化的理解？
+
+相关知识点：
+
+```
+ （1） 用正确的标签做正确的事情。
+ （2） html 语义化让页面的内容结构化，结构更清晰，便于对浏览器、搜索引擎解析;
+ （3） 即使在没有样式 CSS 情况下也以一种文档格式显示，并且是容易阅读的;
+ （4） 搜索引擎的爬虫也依赖于 HTML 标记来确定上下文和各个关键字的权重，利于 SEO ;
+ （5） 使阅读源代码的人对网站更容易将网站分块，便于阅读维护理解。
+```
+
+回答：
+
+```
+ 我认为 html 语义化主要指的是我们应该使用合适的标签来划分网页内容的结构。html 的本质作用其实就是定义网页文档的结构，
+ 一个语义化的文档，能够使页面的结构更加清晰，易于理解。这样不仅有利于开发者的维护和理解，同时也能够使机器对文档内容进
+ 行正确的解读。比如说我们常用的 b 标签和 strong 标签，它们在样式上都是文字的加粗，但是 strong 标签拥有强调的语义。
+ 对于一般显示来说，可能我们看上去没有差异，但是对于机器来说，就会有很大的不同。如果用户使用的是屏幕阅读器来访问网页的
+ 话，使用 strong 标签就会有明显的语调上的变化，而 b 标签则没有。如果是搜索引擎的爬虫对我们网页进行分析的话，那么它会
+ 依赖于 html 标签来确定上下文和各个关键字的权重，一个语义化的文档对爬虫来说是友好的，是有利于爬虫对文档内容解读的，
+ 从而有利于我们网站的 SEO 。从 html5 我们可以看出，标准是倾向于以语义化的方式来构建网页的，比如新增了 header 、fo
+ oter 这些语义标签，删除了 big 、font 这些没有语义的标签。
+```
+
+详细资料可以参考：
+[《语义化的 HTML 结构到底有什么好处？》](https://www.html.cn/archives/1668)
+[《如何理解 Web 语义化？》](https://www.zhihu.com/question/20455165)
+[《我的 HTML 会说话——从实用出发，谈谈 HTML 的语义化》](https://juejin.im/post/5a9c8866f265da23741072bf#heading-5)
+
+#### 31. b 与 strong 的区别和 i 与 em 的区别？
+
+```
+ 从页面显示效果来看，被 <b> 和 <strong> 包围的文字将会被加粗，而被 <i> 和 <em> 包围的文字将以斜体的形式呈现。
+
+ 但是 <b> <i> 是自然样式标签，分别表示无意义的加粗，无意义的斜体，表现样式为 { font-weight: bolder}，仅仅表示「这
+ 里应该用粗体显示」或者「这里应该用斜体显示」，此两个标签在 HTML4.01 中并不被推荐使用。
+
+ 而 <em> 和 <strong> 是语义样式标签。 <em> 表示一般的强调文本，而 <strong> 表示比 <em> 语义更强的强调文本。
+
+ 使用阅读设备阅读网页时：<strong> 会重读，而 <b> 是展示强调内容。
+```
+
+详细资料可以参考：
+[《HTML5 中的 b/strong，i/em 有什么区别？》](https://www.zhihu.com/question/19551271)
+
+#### 32. 前端需要注意哪些 SEO ？
+
+```
+ （1）合理的 title、description、keywords：搜索对着三项的权重逐个减小，title 值强调重点即可，重要关键词出现不要超
+     过2次，而且要靠前，不同页面 title 要有所不同；description 把页面内容高度概括，长度合适，不可过分堆砌关键词，不
+     同页面 description 有所不同；keywords 列举出重要关键词即可。
+
+ （2）语义化的 HTML 代码，符合 W3C 规范：语义化代码让搜索引擎容易理解网页。
+
+ （3）重要内容 HTML 代码放在最前：搜索引擎抓取 HTML 顺序是从上到下，有的搜索引擎对抓取长度有限制，保证重要内容肯定被
+     抓取。
+
+ （4）重要内容不要用 js 输出：爬虫不会执行 js 获取内容
+
+ （5）少用 iframe：搜索引擎不会抓取 iframe 中的内容
+
+ （6）非装饰性图片必须加 alt
+
+ （7）提高网站速度：网站速度是搜索引擎排序的一个重要指标
+```
+
+#### 33. HTML5 的离线储存怎么使用，工作原理能不能解释一下？
+
+```
+ 在用户没有与因特网连接时，可以正常访问站点或应用，在用户与因特网连接时，更新用户机器上的缓存文件。
+
+ 原理：HTML5 的离线存储是基于一个新建的 .appcache 文件的缓存机制（不是存储技术），通过这个文件上的解析清单离线存储资
+      源，这些资源就会像 cookie 一样被存储了下来。之后当网络在处于离线状态下时，浏览器会通过被离线存储的数据进行页面
+      展示。
+
+ 如何使用：
+
+ （1）创建一个和 html 同名的 manifest 文件，然后在页面头部像下面一样加入一个 manifest 的属性。
+
+     <html lang="en" manifest="index.manifest">
+
+ （2）在如下 cache.manifest 文件的编写离线存储的资源。
+   	CACHE MANIFEST
+   	#v0.11
+   	CACHE:
+   	js/app.js
+   	css/style.css
+   	NETWORK:
+   	resourse/logo.png
+   	FALLBACK:
+   	/ /offline.html
+
+     CACHE: 表示需要离线存储的资源列表，由于包含 manifest 文件的页面将被自动离线存储，所以不需要把页面自身也列出
+            来。
+
+     NETWORK: 表示在它下面列出来的资源只有在在线的情况下才能访问，他们不会被离线存储，所以在离线情况下无法使用这些
+              资源。不过，如果在 CACHE 和 NETWORK 中有一个相同的资源，那么这个资源还是会被离线存储，也就是说 C
+              ACHE 的优先级更高。
+
+     FALLBACK: 表示如果访问第一个资源失败，那么就使用第二个资源来替换他，比如上面这个文件表示的就是如果访问根目录下
+               任何一个资源失败了，那么就去访问 offline.html 。
+
+ （3）在离线状态时，操作 window.applicationCache 进行离线缓存的操作。
 
 
-### 3.Meta标签有哪些？有什么作用
+ 如何更新缓存：
 
-`meta` 标签由 `name` 和 `content` 属性定义，**用来描述网页文档的属性**，比如网页的作者，网页描述，关键词等，除了HTTP标准固定了一些`name`作为大家使用的共识，开发者还可以自定义name。
+ （1）更新 manifest 文件
+ （2）通过 javascript 操作
+ （3）清除浏览器缓存
 
-常用的meta标签： （1）`charset`，用来描述HTML文档的编码类型：
+ 注意事项：
+
+ （1）浏览器对缓存数据的容量限制可能不太一样（某些浏览器设置的限制是每个站点 5MB）。
+ （2）如果 manifest 文件，或者内部列举的某一个文件不能正常下载，整个更新过程都将失败，浏览器继续全部使用老的缓存。
+ （3）引用 manifest 的 html 必须与 manifest 文件同源，在同一个域下。
+ （4）FALLBACK 中的资源必须和 manifest 文件同源。
+ （5）当一个资源被缓存后，该浏览器直接请求这个绝对路径也会访问缓存中的资源。
+ （6）站点中的其他页面即使没有设置 manifest 属性，请求的资源如果在缓存中也从缓存中访问。
+ （7）当 manifest 文件发生改变时，资源请求本身也会触发更新。
+
+```
+
+详细的使用可以参考：
+[《HTML5 离线缓存-manifest 简介》](https://yanhaijing.com/html/2014/12/28/html5-manifest/)
+[《有趣的 HTML5：离线存储》](https://segmentfault.com/a/1190000000732617)
+
+#### 34. 浏览器是怎么对 HTML5 的离线储存资源进行管理和加载的呢？
+
+```
+ 在线的情况下，浏览器发现 html 头部有 manifest 属性，它会请求 manifest 文件，如果是第一次访问 app ，那么浏览器
+ 就会根据 manifest 文件的内容下载相应的资源并且进行离线存储。如果已经访问过 app 并且资源已经离线存储了，那么浏览器
+ 就会使用离线的资源加载页面，然后浏览器会对比新的 manifest 文件与旧的 manifest 文件，如果文件没有发生改变，就不做
+ 任何操作，如果文件改变了，那么就会重新下载文件中的资源并进行离线存储。
+
+ 离线的情况下，浏览器就直接使用离线存储的资源。
+```
+
+#### 35. 常见的浏览器端的存储技术有哪些？
+
+```
+ 浏览器常见的存储技术有 cookie、localStorage 和 sessionStorage。
+
+ 还有两种存储技术用于大规模数据存储，webSQL（已被废除）和 indexDB。
+
+ IE 支持 userData 存储数据，但是基本很少使用到，除非有很强的浏览器兼容需求。
+```
+
+详细的资料可以参考：
+[《很全很全的前端本地存储讲解》](https://segmentfault.com/a/1190000012578794#articleHeader0)
+
+#### 36. 请描述一下 cookies，sessionStorage 和 localStorage 的区别？
+
+相关资料：
+
+```
+ SessionStorage， LocalStorage， Cookie 这三者都可以被用来在浏览器端存储数据，而且都是字符串类型的键值对。区别
+ 在于前两者属于 HTML5 WebStorage，创建它们的目的便于客户端存储数据。而 cookie 是网站为了标示用户身份而储存在用户
+ 本地终端上的数据（通常经过加密）。cookie 数据始终在同源（协议、主机、端口相同）的 http 请求中携带（即使不需要），会
+ 在浏览器和服务器间来回传递。
+
+
+ 存储大小：
+   	cookie 数据大小不能超过4 k 。
+   	sessionStorage 和 localStorage 虽然也有存储大小的限制，但比 cookie 大得多，可以达到 5M 或更大。
+
+ 有期时间：
+   	localStorage    存储持久数据，浏览器关闭后数据不丢失除非主动删除数据。
+   	sessionStorage  数据在页面会话结束时会被清除。页面会话在浏览器打开期间一直保持，并且重新加载或恢复页面仍会
+                     保持原来的页面会话。在新标签或窗口打开一个页面时会在顶级浏览上下文中初始化一个新的会话。
+   	cookie          设置的 cookie 过期时间之前一直有效，即使窗口或浏览器关闭。
+
+ 作用域：
+     sessionStorage  只在同源的同窗口（或标签页）中共享数据，也就是只在当前会话中共享。
+     localStorage    在所有同源窗口中都是共享的。
+     cookie          在所有同源窗口中都是共享的。
+```
+
+回答：
+
+```
+ 浏览器端常用的存储技术是 cookie 、localStorage 和 sessionStorage。
+
+ cookie 其实最开始是服务器端用于记录用户状态的一种方式，由服务器设置，在客户端存储，然后每次发起同源请求时，发送给服
+ 务器端。cookie 最多能存储 4 k 数据，它的生存时间由 expires 属性指定，并且 cookie 只能被同源的页面访问共享。
+
+ sessionStorage 是 html5 提供的一种浏览器本地存储的方法，它借鉴了服务器端 session 的概念，代表的是一次会话中所保
+ 存的数据。它一般能够存储 5M 或者更大的数据，它在当前窗口关闭后就失效了，并且 sessionStorage 只能被同一个窗口的同源
+ 页面所访问共享。
+
+ localStorage 也是 html5 提供的一种浏览器本地存储的方法，它一般也能够存储 5M 或者更大的数据。它和 sessionStorage
+ 不同的是，除非手动删除它，否则它不会失效，并且 localStorage 也只能被同源页面所访问共享。
+
+ 上面几种方式都是存储少量数据的时候的存储方式，当我们需要在本地存储大量数据的时候，我们可以使用浏览器的 indexDB 这是浏
+ 览器提供的一种本地的数据库存储机制。它不是关系型数据库，它内部采用对象仓库的形式存储数据，它更接近 NoSQL 数据库。
+```
+
+详细的资料可以参考：
+[《请描述一下 cookies，sessionStorage 和 localStorage 的区别？》](https://segmentfault.com/a/1190000017423117)
+[《浏览器数据库 IndexedDB 入门教程》](http://www.ruanyifeng.com/blog/2018/07/indexeddb.html)
+
+#### 37. iframe 有那些缺点？
+
+```
+ iframe 元素会创建包含另外一个文档的内联框架（即行内框架）。
+
+ 主要缺点有：
+
+ （1） iframe 会阻塞主页面的 onload 事件。window 的 onload 事件需要在所有 iframe 加载完毕后（包含里面的元素）才
+      会触发。在 Safari 和 Chrome 里，通过 JavaScript 动态设置 iframe 的 src 可以避免这种阻塞情况。
+ （2） 搜索引擎的检索程序无法解读这种页面，不利于网页的 SEO 。
+ （3） iframe 和主页面共享连接池，而浏览器对相同域的连接有限制，所以会影响页面的并行加载。
+ （4） 浏览器的后退按钮失效。
+ （5） 小型的移动设备无法完全显示框架。
+```
+
+详细的资料可以参考：
+[《使用 iframe 的优缺点》](https://blog.csdn.net/yintianqin/article/details/72625785)
+[《iframe 简单探索以及 iframe 跨域处理》](https://segmentfault.com/a/1190000009891683)
+
+#### 38. Label 的作用是什么？是怎么用的？
+
+```
+ label 标签来定义表单控制间的关系，当用户选择该标签时，浏览器会自动将焦点转到和标签相关的表单控件上。
+
+ <label for="Name">Number:</label>
+ <input type=“text“ name="Name" id="Name"/>
+```
+
+#### 39. HTML5 的 form 的自动完成功能是什么？
+
+```
+ autocomplete 属性规定输入字段是否应该启用自动完成功能。默认为启用，设置为 autocomplete=off 可以关闭该功能。
+
+ 自动完成允许浏览器预测对字段的输入。当用户在字段开始键入时，浏览器基于之前键入过的值，应该显示出在字段中填写的选项。
+
+ autocomplete 属性适用于 <form>，以及下面的 <input> 类型：text, search, url, telephone, email, password,
+ datepickers, range 以及 color。
+```
+
+#### 40. 如何实现浏览器内多个标签页之间的通信?
+
+相关资料：
+
+```
+ （1）使用 WebSocket，通信的标签页连接同一个服务器，发送消息到服务器后，服务器推送消息给所有连接的客户端。
+
+ （2）使用 SharedWorker （只在 chrome 浏览器实现了），两个页面共享同一个线程，通过向线程发送数据和接收数据来实现标
+     签页之间的双向通行。
+
+ （3）可以调用 localStorage、cookies 等本地存储方式，localStorge 另一个浏览上下文里被添加、修改或删除时，它都会触
+     发一个 storage 事件，我们通过监听 storage 事件，控制它的值来进行页面信息通信；
+
+ （4）如果我们能够获得对应标签页的引用，通过 postMessage 方法也是可以实现多个标签页通信的。
+```
+
+回答：
+
+```
+ 实现多个标签页之间的通信，本质上都是通过中介者模式来实现的。因为标签页之间没有办法直接通信，因此我们可以找一个中介者，
+ 让标签页和中介者进行通信，然后让这个中介者来进行消息的转发。
+
+ 第一种实现的方式是使用 websocket 协议，因为 websocket 协议可以实现服务器推送，所以服务器就可以用来当做这个中介者。
+ 标签页通过向服务器发送数据，然后由服务器向其他标签页推送转发。
+
+ 第二种是使用 ShareWorker 的方式，shareWorker 会在页面存在的生命周期内创建一个唯一的线程，并且开启多个页面也只会使
+ 用同一个线程。这个时候共享线程就可以充当中介者的角色。标签页间通过共享一个线程，然后通过这个共享的线程来实现数据的交
+ 换。
+
+ 第三种方式是使用 localStorage 的方式，我们可以在一个标签页对 localStorage 的变化事件进行监听，然后当另一个标签页
+ 修改数据的时候，我们就可以通过这个监听事件来获取到数据。这个时候 localStorage 对象就是充当的中介者的角色。
+
+ 还有一种方式是使用 postMessage 方法，如果我们能够获得对应标签页的引用，我们就可以使用 postMessage 方法，进行通信。
+```
+
+详细的资料可以参考：
+
+[《WebSocket 教程》](http://www.ruanyifeng.com/blog/2017/05/websocket.html)
+[《WebSocket 协议：5 分钟从入门到精通》](https://www.cnblogs.com/chyingp/p/websocket-deep-in.html)
+[《WebSocket 学习（一）——基于 socket.io 实现简单多人聊天室》](https://segmentfault.com/a/1190000011538416)
+[《使用 Web Storage API》](https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API)
+[《JavaScript 的多线程，Worker 和 SharedWorker》](https://www.zhuwenlong.com/blog/article/590ea64fe55f0f385f9a12e5)
+[《实现多个标签页之间通信的几种方法》](https://juejin.im/post/5acdba01f265da23826e5633#heading-1)
+
+#### 41. webSocket 如何兼容低版本浏览器？
+
+```
+ Adobe Flash Socket 、
+ ActiveX HTMLFile (IE) 、
+ 基于 multipart 编码发送 XHR 、
+ 基于长轮询的 XHR
+```
+
+#### 42. 页面可见性（Page Visibility API） 可以有哪些用途？
+
+```
+ 这个新的 API 的意义在于，通过监听网页的可见性，可以预判网页的卸载，还可以用来节省资源，减缓电能的消耗。比如，一旦用户
+ 不看网页，下面这些网页行为都是可以暂停的。
+
+ （1）对服务器的轮询
+ （2）网页动画
+ （3）正在播放的音频或视频
+```
+
+详细资料可以参考：
+[《Page Visibility API 教程》](http://www.ruanyifeng.com/blog/2018/10/page_visibility_api.html)
+
+#### 43. 如何在页面上实现一个圆形的可点击区域？
+
+```
+ （1）纯 html 实现，使用 <area> 来给 <img> 图像标记热点区域的方式，<map> 标签用来定义一个客户端图像映射，<area>
+     标签用来定义图像映射中的区域，area 元素永远嵌套在 map 元素内部，我们可以将 area 区域设置为圆形，从而实现可点击
+     的圆形区域。
+
+ （2）纯 css 实现，使用 border-radius ，当 border-radius 的长度等于宽高相等的元素值的一半时，即可实现一个圆形的
+     点击区域。
+
+ （3）纯 js 实现，判断一个点在不在圆上的简单算法，通过监听文档的点击事件，获取每次点击时鼠标的位置，判断该位置是否在我
+     们规定的圆形区域内。
+```
+
+#### 44. 实现不使用 border 画出 1 px 高的线，在不同浏览器的标准模式与怪异模式下都能保持一致的效果。
 
 ```html
-<meta charset="UTF-8" >
+<div style="height:1px;overflow:hidden;background:red"></div>
 ```
 
-（2） `keywords`，页面关键词：
+#### 45. title 与 h1 的区别？
 
-```html
-<meta name="keywords" content="关键词" />
+```
+ title 属性没有明确意义只表示是个标题，h1 则表示层次明确的标题，对页面信息的抓取也有很大的影响。
 ```
 
-（3）`description`，页面描述：
+#### 46. `<img>` 的 title 和 alt 有什么区别？
 
-```html
-<meta name="description" content="页面描述内容" />
+```
+ title 通常当鼠标滑动到元素上的时候显示
+
+ alt 是 <img> 的特有属性，是图片内容的等价描述，用于图片无法加载时显示、读屏器阅读图片。可提图片高可访问性，除了纯装
+ 饰图片外都必须设置有意义的值，搜索引擎会重点分析。
 ```
 
-（4）`refresh`，页面重定向和刷新：
+#### 47. Canvas 和 SVG 有什么区别？
 
-```html
-<meta http-equiv="refresh" content="0;url=" />
+```
+ Canvas 是一种通过 JavaScript 来绘制 2D 图形的方法。Canvas 是逐像素来进行渲染的，因此当我们对 Canvas 进行缩放时，
+ 会出现锯齿或者失真的情况。
+
+ SVG 是一种使用 XML 描述 2D 图形的语言。SVG 基于 XML，这意味着 SVG DOM 中的每个元素都是可用的。我们可以为某个元素
+ 附加 JavaScript 事件监听函数。并且 SVG 保存的是图形的绘制方法，因此当 SVG 图形缩放时并不会失真。
 ```
 
-（5）`viewport`，适配移动端，可以控制视口的大小和比例：
+详细资料可以参考：
+[《SVG 与 HTML5 的 canvas 各有什么优点，哪个更有前途？》](https://www.zhihu.com/question/19690014)
 
-```html
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+#### 48. 网页验证码是干嘛的，是为了解决什么安全问题？
+
+```
+ （1）区分用户是计算机还是人的公共全自动程序。可以防止恶意破解密码、刷票、论坛灌水
+ （2）有效防止黑客对某一个特定注册用户用特定程序暴力破解方式进行不断的登陆尝试
 ```
 
-其中，`content` 参数有以下几种：
+#### 49. 渐进增强和优雅降级的定义
 
-- `width viewport` ：宽度(数值/device-width)
-- `height viewport` ：高度(数值/device-height)
-- `initial-scale` ：初始缩放比例
-- `maximum-scale` ：最大缩放比例
-- `minimum-scale` ：最小缩放比例
-- `user-scalable` ：是否允许用户缩放(yes/no）
+```
+ 渐进增强：针对低版本浏览器进行构建页面，保证最基本的功能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的
+         用户体验。
 
-（6）搜索引擎索引方式：
-
-```html
-<meta name="robots" content="index,follow" />
+ 优雅降级：一开始就根据高版本浏览器构建完整的功能，然后再针对低版本浏览器进行兼容。
 ```
 
-其中，`content` 参数有以下几种：
+#### 50. attribute 和 property 的区别是什么？
 
-- `all`：文件将被检索，且页面上的链接可以被查询；
-- `none`：文件将不被检索，且页面上的链接不可以被查询；
-- `index`：文件将被检索；
-- `follow`：页面上的链接可以被查询；
-- `noindex`：文件将不被检索；
-- `nofollow`：页面上的链接不可以被查询。
-
-### 4.行内元素，块级元素，空元素有哪些
-
-- 行内元素有：`a b span img input select strong button` ；
-- 块级元素有：`div ul ol li dl dt dd h1 h2 h3 h4 h5 h6 p`
-- 空元素，即没有内容的HTML元素。空元素是在开始标签中关闭的，也就是空元素没有闭合标签：
-  - 常见的有：`<br>`、`<hr>`、`<img>`、`<input>`、`<link>`、`<meta>`
-
-### 5.src和href有什么区别
-
-src是**指向外部资源的位置**，指向的内容会嵌⼊到⽂档中当前标签所在的位置，在请求src资源时会将其指向的资源 下载并应⽤到⽂档内，如js脚本，img图⽚和frame等元素。当浏览器解析到该元素时，**会暂停其他资源的下载和处理**，知道将该资源加载、编译、执⾏完毕，所以⼀般**js脚本会放在底部⽽不是头部**。
-
-href是指向**⽹络资源所在位置（的超链接）**，⽤来建⽴和当前元素或⽂档之间的连接，当浏览器识别到它他指向的⽂件时，就会并⾏下载资源，不会停⽌对当前⽂档的处理。
-
-#### 资源预加载 prefetch/preload
-
-------
-
-> 都是告知浏览器提前加载文件(图片、视频、js、css等)，但执行上是有区别的。
-
-- `prefetch`：其利用浏览器空闲时间来下载或预取用户在不久的将来可能访问的文档。`<link href="/js/xx.js" rel="prefetch">`
-- `preload` : 可以指明哪些资源是在页面加载完成后即刻需要的，浏览器在主渲染机制介入前就进行预加载，这一机制使得资源可以更早的得到加载并可用，且更不易阻塞页面的初步渲染，进而提升性能。 `<link href="/js/xxx.js" rel="preload" as="script">`需要 `as` 指定资源类型**目前可用的属性类型有如下**：
-
-```text
-audio: 音频文件。
-document: 一个将要被嵌入到<frame>或<iframe>内部的HTML文档。
-embed: 一个将要被嵌入到<embed>元素内部的资源。
-fetch: 那些将要通过fetch和XHR请求来获取的资源，比如一个ArrayBuffer或JSON文件。
-font: 字体文件。
-image: 图片文件。
-object: 一个将会被嵌入到<embed>元素内的文件。
-script: JavaScript文件。
-style: 样式表。
-track: WebVTT文件。
-worker: 一个JavaScript的web worker或shared worker。
-video: 视频文件。 
+```
+ attribute 是 dom 元素在文档中作为 html 标签拥有的属性；
+ property 就是 dom 元素在 js 中作为对象拥有的属性。
+ 对于 html 的标准属性来说，attribute 和 property 是同步的，是会自动更新的，
+ 但是对于自定义的属性来说，他们是不同步的。
 ```
 
-### 6.script标签中defer与async的区别
+#### 51. 对 web 标准、可用性、可访问性的理解
 
-如果没有defer或async属性，浏览器会立即加载并执行相应的脚本。它不会等待后续加载的文档元素，读取到就会开始加载和执行，这样就阻塞了后续文档的加载。
+```
+ 可用性（Usability）：产品是否容易上手，用户能否完成任务，效率如何，以及这过程中用户的主观感受可好，是从用户的角度来看
+ 产品的质量。可用性好意味着产品质量高，是企业的核心竞争力
 
-下图可以直观的看出三者之间的区别:
+ 可访问性（Accessibility）：Web 内容对于残障用户的可阅读和可理解性
 
-<img src="https://femarkdownpicture.oss-cn-qingdao.aliyuncs.com/imgsesdfD6zRcFYknxX.png" style="zoom:150%;" />
-
-其中蓝色代表js脚本**网络加载时间**，红色代表js脚本**执行时间**，绿色代表html解析。
-
-**defer 和 async属性都是去异步加载外部的JS脚本文件，它们都不会阻塞页面的解析**，其区别如下：
-
-- **执行顺序：** 多个带async属性的标签，不能保证加载的顺序；多个带defer属性的标签，按照加载顺序执行；
-- **脚本是否并行执行：async属性，表示后续文档的加载和执行与js脚本的加载和执行是并行进行的**，即异步执行；defer属性，加载后续文档的过程和js脚本的加载(此时仅加载不执行)是并行进行的(异步)，js脚本需要等到文档所有元素解析完成之后才执行，DOMContentLoaded事件触发执行之前。
-
-### 7.offset、scroll、client的区别
-
-------
-
-**client**:
-
-- `oEvent.clientX`是指鼠标到可视区左边框的距离。
-- `oEvent.clientY`是指鼠标到可视区上边框的距离。
-- `clientWidth`是指可视区的宽度。
-- `clientHeight`是指可视区的高度。
-- `clientLeft`获取左边框的宽度。
-- `clientTop`获取上边框的宽度。
-
-**offset**:
-
-- `offsetWidth`是指div的宽度（包括div的边框）
-- `offsetHeight`是指div的高度（包括div的边框）
-- `offsetLeft`是指div到整个页面左边框的距离（不包括div的边框）
-- `offsetTop`是指div到整个页面上边框的距离（不包括div的边框）
-
-**scroll**:
-
-- `scrollTop`是指可视区顶部边框与整个页面上部边框的看不到的区域。
-- `scrollLeft`是指可视区左边边框与整个页面左边边框的看不到的区域。
-- `scrollWidth`是指左边看不到的区域加可视区加右边看不到的区域即整个页面的宽度（包括边框）
-- `scrollHeight`是指上边看不到的区域加可视区加右边看不到的区域即整个页面的高度（包括边框）
-
-### 8.`<img>`的`title`和`alt`有什么区别
-
-- 通常当鼠标滑动到元素上的时候显示
-- `alt`是`<img>`的特有属性，是图片内容的等价描述，用于图片无法加载时显示、读屏器阅读图片。可提图片高可访问性，除了纯装饰图片外都必须设置有意义的值，搜索引擎会重点分析。
-
-### 9.iframe的使用
-
-#### iframe基础
-
-- 通常我们使用iframe直接直接在页面嵌套iframe标签指定src就可以了。
-
-```xml
-<iframe src="demo_iframe_sandbox.htm"></iframe>
+ 可维护性（Maintainability）：一般包含两个层次，一是当系统出现问题时，快速定位并解决问题的成本，成本低则可维护性好。
+ 二是代码是否容易被人理解，是否容易修改和增强功能。
 ```
 
-- frame中还可以设置些什么属性
+#### 52. IE 各版本和 Chrome 可以并行下载多少个资源？
 
-> iframe常用属性:
-> 1.frameborder:是否显示边框，1(yes),0(no)
-> 2.height:框架作为一个普通元素的高度，建议在使用css设置。
-> 3.width:框架作为一个普通元素的宽度，建议使用css设置。
-> 4.name:框架的名称，window.frames[name]时专用的属性。
-> 5.scrolling:框架的是否滚动。yes,no,auto。
-> 6.src：内框架的地址，可以使页面地址，也可以是图片的地址。
-> 7.srcdoc , 用来替代原来HTML body里面的内容。但是IE不支持, 不过也没什么卵用
-> 8.sandbox: 对iframe进行一些列限制，IE10+支持
-
-- `iframe`会阻塞主页面的`Onload`事件
-- 搜索引擎的检索程序无法解读这种页面，不利于`SEO`
-- `iframe`和主页面共享连接池，而浏览器对相同域的连接有限制，所以会影响页面的并行加载
-- 使用`iframe`之前需要考虑这两个缺点。如果需要使用`iframe`，最好是通过`javascript`动态给`iframe`添加`src`属性值，这样可以绕开以上两个问题
-
-我们通常使用iframe最基本的特性，就是能自由操作iframe和父框架的内容(DOM). 但前提条件是同域. 如果跨域顶多只能实现页面跳转window.location.href.
-那什么是同域/ 什么是跨域呢?
-就是判断你的url首部是否一样，下面会有讲解，这里只是提及。
-同域不同域的问题:
-
-```jsx
-A:<iframe id="mainIframe" name="mainIframe" src="/main.html" frameborder="0" scrolling="auto" ></iframe>
-B:<iframe id="mainIframe" name="mainIframe" src="http://www.baidu.com" frameborder="0" scrolling="auto" ></iframe>
+```
+ （1）  IE6 2 个并发
+ （2）  iE7 升级之后的 6 个并发，之后版本也是 6 个
+ （3）  Firefox，chrome 也是6个
 ```
 
-> 使用A时，因为同域，父页面可以对子页面进行改写,反之亦然。
-> 使用B时，不同域，父页面没有权限改动子页面,但可以实现页面的跳转
+#### 53. Flash、Ajax 各自的优缺点，在使用中如何取舍？
 
-**主页面和iframe同域时，我们可以干些什么。**
+```
+ Flash：
+ （1） Flash 适合处理多媒体、矢量图形、访问机器
+ （2） 对 CSS、处理文本上不足，不容易被搜索
 
-##### 获取iframe里的内容
+ Ajax：
+ （1） Ajax 对 CSS、文本支持很好，支持搜索
+ （2） 多媒体、矢量图形、机器访问不足
 
-主要的两个API就是contentWindow,和contentDocument
-iframe.contentWindow, 获取iframe的window对象
-iframe.contentDocument, 获取iframe的document对象
-这两个API只是DOM节点提供的方式(即getELement系列对象)
-
-```jsx
-var iframe = document.getElementById("iframe1");
-var iwindow = iframe.contentWindow;
-var idoc = iwindow.document;
-       console.log("window",iwindow);//获取iframe的window对象
-       console.log("document",idoc);  //获取iframe的document
-       console.log("html",idoc.documentElement);//获取iframe的html
-       console.log("head",idoc.head);  //获取head
-       console.log("body",idoc.body);  //获取body
+ 共同点：
+ （1） 与服务器的无刷新传递消息
+ （2） 可以检测用户离线和在线状态
+ （3） 操作 DOM
 ```
 
-另外更简单的方式是，结合Name属性，通过window提供的frames获取.
+#### 54. 怎么重构页面？
 
-
-
-```xml
-<iframe src ="/index.html" id="ifr1" name="ifr1" scrolling="yes">
-  <p>Your browser does not support iframes.</p>
-</iframe>
-
-<script type="text/javascript">
-    console.log(window.frames['ifr1'].window);
-    console.dir(document.getElementById("ifr1").contentWindow);
-</script>
+```
+ （1） 编写 CSS
+ （2） 让页面结构更合理化，提升用户体验
+ （3） 实现良好的页面效果和提升性能
 ```
 
-> 其实window.frames['ifr1']返回的就是window对象，即
-> window.frames['ifr1']===window
-> 这里就看你想用哪一种方式获取window对象，两者都行，不过本人更倾向于第二种使用frames[xxx].因为，字母少啊~ 然后，你就可以操控iframe里面的DOM内容。
+#### 55. 浏览器架构
 
-##### 在iframe中获取父级内容
-
-同理，在同域下，父页面可以获取子iframe的内容，那么子iframe同样也能操作父页面内容。在iframe中，可以通过在window上挂载的几个API进行获取.
-
-> window.parent 获取上一级的window对象，如果还是iframe则是该iframe的window对象
-> window.top 获取最顶级容器的window对象，即，就是你打开页面的文档
-> window.self 返回自身window的引用。可以理解 window===window.self(脑残)
-
-#### iframe长轮询
-
-如果写过ajax的童鞋，应该知道，长轮询就是在ajax的readyState = 4的时，再次执行原函数即可。 这里使用iframe也是一样，异步创建iframe，然后reload, 和后台协商好, 看后台哥哥们将返回的信息放在,然后获取里面信息即可. 这里是直接放在body里.
-
-```jsx
-var iframeCon = docuemnt.querySelector('#container'),
-        text; //传递的信息
-    var iframe = document.createElement('iframe'),
-        iframe.id = "frame",
-        iframe.style = "display:none;",
-        iframe.name="polling",
-        iframe.src="target.html";
-    iframeCon.appendChild(iframe);
-    iframe.οnlοad= function(){
-        var iloc = iframe.contentWindow.location,
-            idoc  = iframe.contentDocument;
-        setTimeout(function(){
-            text = idoc.getElementsByTagName('body')[0].textContent;
-            console.log(text);
-            iloc.reload(); //刷新页面,再次获取信息，并且会触发onload函数
-        },2000);
-    }
+```
+ * 用户界面
+   * 主进程
+   * 内核
+       * 渲染引擎
+       * JS 引擎
+           * 执行栈
+       * 事件触发线程
+           * 消息队列
+               * 微任务
+               * 宏任务
+       * 网络异步线程
+       * 定时器线程
 ```
 
-这样就可以实现ajax的长轮询的效果。 当然，这里只是使用reload进行获取，你也可以添加iframe和删除iframe的方式，进行发送信息，这些都是根据具体场景应用的。另外在iframe中还可以实现异步加载js文件，不过，iframe和主页是共享连接池的，所以还是很蛋疼的，现在基本上都被XHR和hard calllback取缔了，这里也不过多介绍了。
+#### 56. 常用的 meta 标签
 
-#### 自适应iframe广告
+```
+ <meta> 元素可提供有关页面的元信息（meta-information），比如针对搜索引擎和更新频度的描述和关键词。
+ <meta> 标签位于文档的头部，不包含任何内容。<meta> 标签的属性定义了与文档相关联的名称/值对。
 
-网页为了赚钱，引入广告是很正常的事了。通常的做法就是使用iframe，引入广告地址就可以了，然后根据广告内容设置相应的显示框。但是，为什么是使用iframe来进行设置，而不是在某个div下嵌套就行了呢？
-要知道，广告是与原文无关的，这样硬编码进去，会造成网页布局的紊乱,而且,这样势必需要引入额外的css和js文件，极大的降低了网页的安全性。 这些所有的弊端，都可以使用iframe进行解决。
-我们通常可以将iframe理解为一个沙盒，里面的内容能够被top window 完全控制，而且，主页的css样式是不会入侵iframe里面的样式，这些都给iframe的广告命运埋下伏笔。可以看一下各大站点是否都在某处放了些广告，以维持生计比如:W3School
-但，默认情况下，iframe是不适合做展示信息的，所以我们需要对其进行decorate.
-
-#### 自适应iframe
-
-认情况下，iframe会自带滚动条，不会全屏.如果你想自适应iframe的话:第一步：去掉滚动条
-
-```xml
-<iframe src="./iframe1.html" id="iframe1" scrolling="no"></iframe>
+ <!DOCTYPE html>  H5标准声明，使用 HTML5 doctype，不区分大小写
+ <head lang="en"> 标准的 lang 属性写法
+ <meta charset="utf-8">    声明文档使用的字符编码
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>   优先使用 IE 最新版本和 Chrome
+ <meta name="description" content="不超过150个字符"/>       页面描述
+ <meta name="keywords" content=""/>      页面关键词者
+ <meta name="author" content="name, email@gmail.com"/>    网页作
+ <meta name="robots" content="index,follow"/>      搜索引擎抓取
+ <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no"> 为移动设备添加 viewport
+ <meta name="apple-mobile-web-app-title" content="标题"> iOS 设备 begin
+ <meta name="apple-mobile-web-app-capable" content="yes"/>  添加到主屏后的标题（iOS 6 新增）
+ 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏
+ <meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
+ 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari）
+ <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+ <meta name="format-detection" content="telphone=no, email=no"/>  设置苹果工具栏颜色
+ <meta name="renderer" content="webkit">  启用360浏览器的极速模式(webkit)
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">     避免IE使用兼容模式
+ <meta http-equiv="Cache-Control" content="no-siteapp" />    不让百度转码
+ <meta name="HandheldFriendly" content="true">     针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓
+ <meta name="MobileOptimized" content="320">   微软的老式浏览器
+ <meta name="screen-orientation" content="portrait">   uc强制竖屏
+ <meta name="x5-orientation" content="portrait">    QQ强制竖屏
+ <meta name="full-screen" content="yes">              UC强制全屏
+ <meta name="x5-fullscreen" content="true">       QQ强制全屏
+ <meta name="browsermode" content="application">   UC应用模式
+ <meta name="x5-page-mode" content="app">    QQ应用模式
+ <meta name="msapplication-tap-highlight" content="no">    windows phone 点击无高光
+ 设置页面不缓存
+ <meta http-equiv="pragma" content="no-cache">
+ <meta http-equiv="cache-control" content="no-cache">
+ <meta http-equiv="expires" content="0">
 ```
 
-第二步,设置iframe的高为body的高
+详细资料可以参考：
+[《Meta 标签用法大全》](http://www.cnblogs.com/qiumohanyu/p/5431859.html)
 
-```dart
-var iwindow = iframe.contentWindow;
-var idoc = iwindow.document;
-iframe.height = idoc.body.offsetHeight;
+#### 57. css reset 和 normalize.css 有什么区别？
+
+相关知识点：
+
+```
+ 为什么会有 CSS Reset 的存在呢？那是因为早期的浏览器支持和理解的 CSS 规范不同，导致渲染页面时效果不一致，会出现很多
+ 兼容性问题。
+
+ reset 的目的，是将所有的浏览器的自带样式重置掉，这样更易于保持各浏览器渲染的一致性。
+
+ normalize 的理念则是尽量保留浏览器的默认样式，不进行太多的重置，而尽力让这些样式保持一致并尽可能与现代标准相符合。
+
+
+ 1.Normalize.css 保护了有价值的默认值
+
+ Reset 通过为几乎所有的元素施加默认样式，强行使得元素有相同的视觉效果。 相比之下，Normalize.css 保持了许多默认的浏
+ 览器样式。 这就意味着你不用再为所有公共的排版元素重新设置样式。 当一个元素在不同的浏览器中有不同的默认值时，Normali
+ ze.css 会力求让这些样式保持一致并尽可能与现代标准相符合。
+
+
+ 2.Normalize.css 修复了浏览器的 bug
+
+ 它修复了常见的桌面端和移动端浏览器的 bug。这往往超出了 Reset 所能做到的范畴。关于这一点，Normalize.css 修复的问题
+ 包含了 HTML5 元素的显示设置、预格式化文字的 font-size 问题、在 IE9 中 SVG 的溢出、许多出现在各浏览器和操作系统中
+ 的与表单相关的 bug。
+
+
+ 3.Normalize.css 没有复杂的继承链
+
+ 使用 Reset 最让人困扰的地方莫过于在浏览器调试工具中大段大段的继承链。在 Normalize.css 中就不会有这样的问题，因为在
+ 我们的准则中对多选择器的使用时非常谨慎的，我们仅会有目的地对目标元素设置样式。
+
+
+ 4.Normalize.css 是模块化的
+
+ 这个项目已经被拆分为多个相关却又独立的部分，这使得你能够很容易也很清楚地知道哪些元素被设置了特定的值。因此这能让你自己
+ 选择性地移除掉某些永远不会用到部分（比如表单的一般化）。
+
+
+ 5.Normalize.css 拥有详细的文档
+
+ Normalize.css 的代码基于详细而全面的跨浏览器研究与测试。这个文件中拥有详细的代码说明并在 Github Wiki 中有进一步的
+ 说明。这意味着你可以找到每一行代码具体完成了什么工作、为什么要写这句代码、浏览器之间的差异，并且你可以更容易地进行自己
+ 的测试。
+
 ```
 
-另外,还可以添加其它的装饰属性:
+回答：
 
-| 属性              | 效果                                                |
-| ----------------- | --------------------------------------------------- |
-| allowtransparency | true or false 是否允许iframe设置为透明，默认为false |
-| allowfullscreen   | true or false 是否允许iframe全屏，默认为false       |
+```
+ css reset 是最早的一种解决浏览器间样式不兼容问题的方案，它的基本思想是将浏览器的所有样式都重置掉，从而达到所有浏览器
+ 样式保持一致的效果。但是使用这种方法，可能会带来一些性能上的问题，并且对于一些元素的不必要的样式的重置，其实反而会造成
+ 画蛇添足的效果。
 
-例子:
+ 后面出现一种更好的解决浏览器间样式不兼容的方法，就是 normalize.css ，它的思想是尽量的保留浏览器自带的样式，通过在原
+ 有的样式的基础上进行调整，来保持各个浏览器间的样式表现一致。相对与 css reset，normalize.css 的方法保留了有价值的默
+ 认值，并且修复了一些浏览器的 bug，而且使用 normalize.css 不会造成元素复杂的继承链。
 
-```xml
-<iframe id="google_ads_frame2" name="google_ads_frame2" width="160" height="600" frameborder="0" src="target.html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true"></iframe>
 ```
 
-你可以直接写在内联里面，也可以在css里面定义，不过对于广告iframe来说，样式写在属性中，是best pratice
+详细资料可以参考：
+[《关于 CSS Reset 那些事（一）之 历史演变与 Normalize.css》](https://segmentfault.com/a/1190000003021766#articleHeader0)
+[《Normalize.css 和 Reset CSS 有什么本质区别没？》](https://segmentfault.com/q/1010000000117189)
 
-#### iframe安全性问题
+#### 58. 用于预格式化文本的标签是？
 
-iframe出现安全性有两个方面，一个是你的网页被别人iframe,一个是你iframe别人的网页。 当你的网页被别人iframe时，比较蛋疼的是被钓鱼网站利用，然后victim+s留言逼逼你。真.简直了。 所以为了防止页面被一些不法分子利用，我们需要做好安全性措施。
+```
+ 预格式化就是保留文字在源码中的格式 最后显示出来样式与源码中的样式一致 所见即所得。
 
-##### 防嵌套网页
-
-比如，最出名的clickhacking就是使用iframe来 拦截click事件。因为iframe享有着click的最优先权，当有人在伪造的主页中进行点击的话，如果点在iframe上，则会默认是在操作iframe的页面。 所以，钓鱼网站就是使用这个技术，通过诱导用户进行点击，比如，设计一个"妹妹寂寞了"等之类的网页，诱导用户点击，但实际结果，你看到的不是"妹妹",而是被恶意微博吸粉。
-所以，为了防止网站被钓鱼，可以使用window.top来防止你的网页被iframe.
-
-```dart
-//iframe2.html
-if(window != window.top){
- window.top.location.href = correctURL;
-}
+ <pre> 定义预格式文本，保持文本原有的格式
 ```
 
-这段代码的主要用途是限定你的网页不能嵌套在任意网页内。如果你想引用同域的框架的话，可以判断域名。
+#### 59. DHTML 是什么？
 
-```dart
-if (top.location.host != window.location.host) {
-　　top.location.href = window.location.href;
-}
+```
+ DHTML 将 HTML、JavaScript、DOM 以及 CSS 组合在一起，用于创造动态性更强的网页。通过 JavaScript 和 HTML DOM，能
+ 够动态地改变 HTML 元素的样式。
+
+ DHTML 实现了网页从 Web 服务器下载后无需再经过服务的处理，而在浏览器中直接动态地更新网页的内容、排版样式和动画的功
+ 能。例如，当鼠标指针移到文章段落中时，段落能够变成蓝色，或者当鼠标指针移到一个超级链接上时，会自动生成一个下拉式子链
+ 接目录等。
+
+ 包括：
+ （1）动态内容（Dynamic Content）：动态地更新网页内容，可“动态”地插入、修改或删除网页的元件，如文字、图像、标记等。
+
+ （2）动态排版样式（Dynamic Style Sheets）：W3C 的 CSS 样式表提供了设定 HTML 标记的字体大小、字形、样式、粗细、
+     文字颜色、行高度、加底线或加中间横线、缩排、与边缘距离、靠左右或置中、背景图片或颜色等排版功能，而“动态排版样
+     式”即可以“动态”地改变排版样式。
 ```
 
-当然，如果你网页不同域名的话，上述就会报错。
-所以，这里可以使用try...catch...进行错误捕获。如果发生错误，则说明不同域，表示你的页面被盗用了。可能有些浏览器这样写是不会报错，所以需要降级处理。
-这时候再进行跳转即可.
+#### 60. head 标签中必不少的是？
 
+```
+ <head> 标签用于定义文档的头部，它是所有头部元素的容器。<head> 中的元素可以引用脚本、指示浏览器在哪里找到样式表、提供
+ 元信息等等。
 
+ 文档的头部描述了文档的各种属性和信息，包括文档的标题、在 Web 中的位置以及和其他文档的关系等。绝大多数文档头部包含的数
+ 据都不会真正作为内容显示给读者。
 
-```dart
-try{
-　　top.location.hostname;  //检测是否出错
-　　//如果没有出错，则降级处理
-　　if (top.location.hostname != window.location.hostname) { 
-　　　　top.location.href =window.location.href;
-　　}
-}
-catch(e){
-　　top.location.href = window.location.href;
-}
+ 下面这些标签可用在 head 部分：<base>, <link>, <meta>, <script>, <style>, 以及 <title>。
+
+ <title> 定义文档的标题，它是 head 部分中唯一必需的元素。
 ```
 
-这只是浏览器端，对iframe页面的权限做出相关的设置。 我们还可以在服务器上，对使用iframe的权限进行设置.
+#### 61. HTML5 新增的表单元素有？
 
-##### X-Frame-Options
+```
+ datalist 规定输入域的选项列表，通过 option 创建！
 
-X-Frame-Options是一个相应头，主要是描述服务器的网页资源的iframe权限。目前的支持度是IE8+(已经很好了啊喂)有3个选项:
+ keygen 提供一种验证用户的可靠方法，密钥对生成器，私钥存于客户端，公钥发到服务器，用于之后验证客户端证书！
 
-> DENY：当前页面不能被嵌套iframe里，即便是在相同域名的页面中嵌套也不允许,也不允许网页中有嵌套iframe
-> SAMEORIGIN：iframe页面的地址只能为同源域名下的页面
-> ALLOW-FROM：可以在指定的origin url的iframe中加载
-> X-Frame-Options: DENY
-> 拒绝任何iframe的嵌套请求
-> X-Frame-Options: SAMEORIGIN
-> 只允许同源请求，例如网页为 foo.com/123.php，則 foo.com 底下的所有网页可以嵌入此网页，但是 foo.com 以外的网页不能嵌入
-> X-Frame-Options: ALLOW-FROM [http://s3131212.com](https://links.jianshu.com/go?to=http%3A%2F%2Fs3131212.com)
-> 只允许指定网页的iframe请求，不过兼容性较差Chrome不支持
-> X-Frame-Options其实就是将前端js对iframe的把控交给服务器来进行处理。
-
-```dart
-//js
-if(window != window.top){
-    window.top.location.href = window.location.href;
-}
-//等价于
-X-Frame-Options: DENY
-//js
-if (top.location.hostname != window.location.hostname) { 
-　　　　top.location.href =window.location.href;
-}
-//等价于
-X-Frame-Options: SAMEORIGIN
+ output 元素用于不同类型的输出！
 ```
 
-该属性是对页面的iframe进行一个主要限制，不过，涉及iframe的header可不止这一个，另外还有一个Content Security Policy, 他同样也可以对iframe进行限制，而且，他应该是以后网页安全防护的主流。
+#### 62. 在 HTML5 中，哪个方法用于获得用户的当前位置？
 
-##### CSP之页面防护
-
-和X-Frames-Options一样，都需要在服务器端设置好相关的Header. CSP 的作用， 真的是太大了，他能够极大的防止你的页面被XSS攻击，而且可以制定js,css,img等相关资源的origin，防止被恶意注入。不过他的兼容性，也是渣的一逼。目前支持Edge12+ 以及 IE10+。
-而且目前市面上，流行的是3种CSP头，以及各种浏览器的兼容性
-
-使用主要是在后端服务器上配置，在前端，我们可以观察Response Header 里是否有这样的一个Header:
-
-Content-Security-Policy: default-src 'self'
-这就表明，你的网页是启用CSP的。通常我们可以在CSP后配置各种指定资源路径，有
-
-```csharp
- default-src,
-script-src,
-style-src,
-img-src,
-connect-src,
-font-src,
-object-src,
-media-src,
-sandbox,
-child-src,
-...
+```
+ getCurrentPosition()
 ```
 
-如果你未指定的话，则是使用default-src规定的加载策略.
-默认配置就是同域: default-src "self".
-这里和iframe有一点瓜葛的就是 child-src 和 sandbox.
-child-src就是用来指定iframe的有效加载路径。其实和X-Frame-Options中配置allow-origin是一个道理。不过,allow-origin 没有得到厂商们的支持。
-而，sandbox其实就和iframe的sandbox属性（下文介绍）,是一样一样的，他可以规定来源能够带有什么权限.
-来个demo:
+#### 63. 文档的不同注释方式？
 
-```csharp
-Content-Security-Policy: child-src 'self' http://example.com; sandbox allow-forms allow-same-origin
+```
+ HTML 的注释方法 <!--注释内容-->
+
+ CSS 的注释方法 /*注释内容*/
+
+ JavaScript 的注释方法 /* 多行注释方式 */ //单行注释方式
 ```
 
-此时，iframe的src就只能加载同域和example.com页面。 最后再补充一点: 使用CSP 能够很好的防止XSS攻击，原理就是CSP会默认escape掉内联样式和脚本，以及eval执行。但是，你可以使用srcipt-src进行降低限制.
+#### 64. disabled 和 readonly 的区别？
 
-```bash
-Content-Security-Policy: script-src 'unsafe-inline'
+```
+ disabled 指当 input 元素加载时禁用此元素。input 内容不会随着表单提交。
+
+ readonly 规定输入字段为只读。input 内容会随着表单提交。
+
+ 无论设置 readonly 还是 disabled，通过 js 脚本都能更改 input 的 value
 ```
 
-如果想更深入的了解CSP,可以参阅:CSP,中文CSP,H5rock之CSP
-ok, 上面基本上就是防止自己页面被嵌套而做的一些安全防护工作。 当然，我们面临的安全问题还有一个，就是当iframe别人的页面时，我们需要对其进行安全设限，虽然，跨域时iframe的安全性会大很多，但是，互联网是没有安全的地方。在以前，我们会进行各种trick来防止自己的页面被污染，现在h5提供的一个新属性sandbox可以很好的解决这个问题。
+#### 65. 主流浏览器内核私有属性 css 前缀？
 
-##### sandbox
-
-> sandbox就是用来给指定iframe设置一个沙盒模型限制iframe的更多权限.
-> sandbox是h5的一个新属性,IE10+支持(md~).
-> 启用方式就是使用sandbox属性:
-
-```xml
- <iframe sandbox src="..."></iframe>
+```
+ mozilla 内核 （firefox,flock 等）    -moz
+ webkit  内核 （safari,chrome 等）   -webkit
+ opera   内核 （opera 浏览器）        -o
+ trident 内核 （ie 浏览器）           -ms
 ```
 
-这样会对iframe页面进行一系列的限制:
+#### 66. 前端性能优化？
 
-> 1. script脚本不能执行
-> 2. 不能发送ajax请求
-> 3. 不能使用本地存储，即localStorage,cookie等
-> 4. 不能创建新的弹窗和window
-> 5. 不能发送表单
-> 6. 不能加载额外插件比如flash等
+```
+ 前端性能优化主要是为了提高页面的加载速度，优化用户的访问体验。我认为可以从这些方面来进行优化。
 
-看到这里，我也是醉了。 好好的一个iframe，你这样是不是有点过分了。 不过，你可以放宽一点权限。在sandbox里面进行一些简单设置
+ 第一个方面是页面的内容方面
 
-```xml
-<iframe sandbox="allow-same-origin" src="..."></iframe>
+ （1）通过文件合并、css 雪碧图、使用 base64 等方式来减少 HTTP 请求数，避免过多的请求造成等待的情况。
+
+ （2）通过 DNS 缓存等机制来减少 DNS 的查询次数。
+
+ （3）通过设置缓存策略，对常用不变的资源进行缓存。
+
+ （4）使用延迟加载的方式，来减少页面首屏加载时需要请求的资源。延迟加载的资源当用户需要访问时，再去请求加载。
+
+ （5）通过用户行为，对某些资源使用预加载的方式，来提高用户需要访问资源时的响应速度。
+
+ 第二个方面是服务器方面
+
+ （1）使用 CDN 服务，来提高用户对于资源请求时的响应速度。
+
+ （2）服务器端启用 Gzip、Deflate 等方式对于传输的资源进行压缩，减小文件的体积。
+
+ （3）尽可能减小 cookie 的大小，并且通过将静态资源分配到其他域名下，来避免对静态资源请求时携带不必要的 cookie
+
+ 第三个方面是 CSS 和 JavaScript 方面
+
+ （1）把样式表放在页面的 head 标签中，减少页面的首次渲染的时间。
+
+ （2）避免使用 @import 标签。
+
+ （3）尽量把 js 脚本放在页面底部或者使用 defer 或 async 属性，避免脚本的加载和执行阻塞页面的渲染。
+
+ （4）通过对 JavaScript 和 CSS 的文件进行压缩，来减小文件的体积。
 ```
 
-常用的配置项有:
+详细的资料可以参考：
+[《前端性能优化之雅虎 35 条军规》](https://juejin.im/post/5b73ef38f265da281e048e51#heading-10)
+[《你真的了解 gzip 吗？》](https://juejin.im/entry/58709b9a128fe1006b29cd5d)
+[《前端性能优化之 gzip》](https://segmentfault.com/a/1190000012571492)
 
-| 配置                 | 效果                                                    |
-| -------------------- | ------------------------------------------------------- |
-| allow-forms          | 允许进行提交表单                                        |
-| allow-scripts        | 运行执行脚本                                            |
-| allow-same-origin    | 允许同域请求,比如ajax,storage                           |
-| allow-top-navigation | 允许iframe能够主导window.top进行页面跳转                |
-| allow-popups         | 允许iframe中弹出新窗口,比如,window.open,target="_blank" |
-| allow-pointer-lock   | 在iframe中可以锁定鼠标，主要和鼠标锁定有关              |
+#### 67. Chrome 中的 Waterfall ？
 
-可以通过在sandbox里，添加允许进行的权限.
+详细资料可以参考：
+[《前端性能之 Chrome 的 Waterfall》](https://blog.csdn.net/carian_violet/article/details/84954360)
+[《教你读懂网络请求的瀑布图》](https://blog.csdn.net/csdn_girl/article/details/54911632) [《前端妹子跟我抱怨她们的页面加载很慢的时候，如何在她面前优雅地装逼？》](https://www.zhihu.com/question/27085552/answer/35194131)
 
+#### 68. 扫描二维码登录网页是什么原理，前后两个事件是如何联系的？
 
+```
+ 核心过程应该是：浏览器获得一个临时 id，通过长连接等待客户端扫描带有此 id 的二维码后，从长连接中获得客户端上报给 serv
+ er的帐号信息进行展示。并在客户端点击确认后，获得服务器授信的令牌，进行随后的信息交互过程。在超时、网络断开、其他设备
+ 上登录后，此前获得的令牌或丢失、或失效，对授权过程形成有效的安全防护。
 
-```xml
-<iframe sandbox="allow-forms allow-same-origin allow-scripts" src="..."></iframe>
+ 我的理解
+
+ 二维码登录网页的基本原理是，用户进入登录网页后，服务器生成一个 uid 来标识一个用户。对应的二维码对应了一个对应 uid
+ 的链接，任何能够识别二维码的应用都可以获得这个链接，但是它们没有办法和对应登录的服务器响应。比如微信的二维码登录，只
+ 有用微信识这个二维码才有效。当微信客户端打开这个链接时，对应的登录服务器就获得了用户的相关信息。这个时候登录网页根据
+ 先前的长连接获取到服务器传过来的用户信息进行显示。然后提前预加载一些登录后可能用到的信息。当客户端点击确认授权登陆后，
+ 服务器生成一个权限令牌给网页，网页之后使用这个令牌进行信息的交互过程。由于整个授权的过程都是在手机端进行的，因此能够
+ 很好的防止 PC 上泛滥的病毒。并且在超时、网络断开、其他设备上登录后，此前获得的令牌或丢失、或失效，对授权过程能够形成
+ 有效的安全防护。
 ```
 
-这样，就可以保证js脚本的执行，但是禁止iframe里的javascript执行top.location = self.location。
-哎，其实，iframe的安全问题还是超级有的。比如location劫持，Refers检查等。 不过目前而言，知道怎么简单的做一些安全措施就over了，白帽子们会帮我们测试的。
+详细资料可以参考：
+[《微信扫描二维码登录网页》](https://www.zhihu.com/question/20368066)
 
-##### resolve iframe跨域
+#### 69. Html 规范中为什么要求引用资源不加协议头`http`或者`https`？
 
-iframe就是一个隔离沙盒，相当于我们在一个页面内可以操控很多个标签页一样。如果踩坑的童鞋应该知道，iframe的解决跨域也是很有套套的。
-首先我们需要明确什么是跨域。
-浏览器判断你跨没跨域，主要根据两个点。 一个是你网页的协议(protocol)，一个就是你的host是否相同，即，就是url的首部:
+```
+ 如果用户当前访问的页面是通过 HTTPS 协议来浏览的，那么网页中的资源也只能通过 HTTPS 协议来引用，否则浏览器会出现
+ 警告信息，不同浏览器警告信息展现形式不同。
 
-window.location.protocol +window.location.host
-需要强调的是，url首部必须一样，比如:二级域名或者IP地址，都算是跨域.
+ 为了解决这个问题，我们可以省略 URL 的协议声明，省略后浏览器照样可以正常引用相应的资源，这项解决方案称为
+  protocol-relative URL，暂且可译作协议相对 URL。
 
-> 域名和域名对应ip, 跨域
-> [http://www.a.com/a.js](https://links.jianshu.com/go?to=http%3A%2F%2Fwww.a.com%2Fa.js)
-> [http://70.32.92.74/b.js](https://links.jianshu.com/go?to=http%3A%2F%2F70.32.92.74%2Fb.js)
-> //统一域名，不同二级域名。 跨域
-> [http://www.a.com/a.js](https://links.jianshu.com/go?to=http%3A%2F%2Fwww.a.com%2Fa.js)
-> [http://a.com/b.js](https://links.jianshu.com/go?to=http%3A%2F%2Fa.com%2Fb.js)
-
-对于第二种方式的跨域（主域相同而子域不同）,可以使用iframe进行解决。
-在两个不同子域下(某一方使用iframe嵌套在另一方)，
-即:
-[http://www.foo.com/a.html](https://links.jianshu.com/go?to=http%3A%2F%2Fwww.foo.com%2Fa.html)和[http://script.foo.com/b.html](https://links.jianshu.com/go?to=http%3A%2F%2Fscript.foo.com%2Fb.html)
-两个文件中分别加上document.domain = ‘foo.com’,指定相同的主域，然后,两个文档就可以进行交互。
-
-
-
-```jsx
-//b.html是以iframe的形式嵌套在a.html中
-//www.foo.com上的a.html
-document.domain = 'foo.com';
-var ifr = document.createElement('iframe');
-ifr.src = 'http://script.foo.com/b.html';
-ifr.style.display = 'none';
-document.body.appendChild(ifr);
-ifr.onload = function(){
-    var doc = ifr.contentDocument || ifr.contentWindow.document;
-    // 在这里操纵b.html
-    alert(doc.getElementsByTagName("h1")[0].childNodes[0].nodeValue);
-};
-//script.foo.com上的b.html
-document.domain = 'foo.com';
+ 如果使用协议相对 URL，无论是使用 HTTPS，还是 HTTP 访问页面，浏览器都会以相同的协议请求页面中的资源，避免弹出类似
+ 的警告信息，同时还可以节省5字节的数据量。
 ```
 
-默认情况下document.domain 是指window.location.hostname. 你可以手动更改，但是最多只能设置为主域名。 通常，主域名就是指不带www的hostname, 比如: [foo.com](https://links.jianshu.com/go?to=http%3A%2F%2Ffoo.com) , [baidu.com](https://links.jianshu.com/go?to=http%3A%2F%2Fbaidu.com) 。 如果，带上www或者其他的前缀，就是二级域名或者多级域名。通过上述设置，相同的domain之后，就可以进行同域的相关操作。另外还可以使用iframe和location.hash，不过由于技术out了，这里就不做介绍了。
-
-##### H5的CDM跨域与iframe
-
-如果你设置的iframe的域名和你top window的域名完全不同。 则可以使用CDM(cross document messaging)进行跨域消息的传递。该API的兼容性较好 ie8+都支持.
-发送消息: 使用postmessage方法
-接受消息: 监听message事件
-
-##### postmessage
-
-该方法挂载到window对象上，即，使用window.postmessage()调用.
-该方法接受两个参数:postMessage(message, targetOrigin):
-message: 就是传递给iframe的内容, 通常是string,如果你想传object对象也可以。不过使用前请参考这一句话:
-
-Objects listed in transfer are transferred, not just cloned, meaning that they are no longer usable on the sending side.
-意思就是，希望亲爱的不要直接传Object。 如果有条件，可以使用是JSON.stringify进行转化。这样能保证不会出bug.
-targetOrigin: 接受你传递消息的域名，可以设置绝对路径，也可以设置""或者"/"。 表示任意域名都行，"/"表示只能传递给同域域名。
-
-来个栗子:
-
-```jsx
-<iframe src="http://tuhao.com" name="sendMessage"></iframe>
-//当前脚本
-let ifr = window.frames['sendMessage'];
-   //使用iframe的window向iframe发送message。
-ifr.postmessage('give u a message', "http://tuhao.com");
-//tuhao.com的脚本
-window.addEventListener('message', receiver, false);
-function receiver(e) {
-    if (e.origin == 'http://tuhao.com') {
-        if (e.data == 'give u a message') {
-            e.source.postMessage('received', e.origin);  //向原网页返回信息
-        } else {
-            alert(e.data);
-        }
-    }
-}
-```
-
-当targetOrigin接受到message消息之后,会触发message事件。 message提供的event对象上有3个重要的属性，data,origin,source.
-
-> data：postMessage传递进来的值
-> origin：发送消息的文档所在的域
-> source：发送消息文档的window对象的代理，如果是来自同一个域，则该对象就是window，可以使用其所有方法，如果是不同的域，则window只能调用postMessage()方法返回信息
-
-
-### 10.canvas和svg有什么区别
-
-**（1）SVG：** SVG**可缩放矢量图形**（Scalable Vector Graphics）是基于可扩展标记语言XML描述的2D图形的语言，**SVG基于XML就意味着SVG DOM中的每个元素都是可用的**，可以为某个元素附加Javascript事件处理器。在 SVG 中，**每个被绘制的图形均被视为对象**。如果 SVG 对象的属性发生变化，那么浏览器能够自动重现图形。
-
-其特点如下：
-
-- 不依赖分辨率
-- 支持事件处理器
-- 最适合带有大型渲染区域的应用程序（比如谷歌地图）
-- 复杂度高会减慢渲染速度（任何过度使用 DOM 的应用都不快）
-- 不适合游戏应用
-
-**（2）Canvas：** Canvas是画布，通过Javascript来绘制2D图形，是逐像素进行渲染的。其位置发生改变，就会重新进行绘制。
-
-其特点如下：
-
-- 依赖分辨率
-- 不支持事件处理器
-- 弱的文本渲染能力
-- 能够以 .png 或 .jpg 格式保存结果图像
-- 最适合图像密集型的游戏，其中的许多对象会被频繁重绘
-
-注：矢量图，也称为面向对象的图像或绘图图像，在数学上定义为一系列由线连接的点。矢量文件中的图形元素称为对象。每个对象都是一个自成一体的实体，它具有颜色、形状、轮廓、大小和屏幕位置等属性。
-
-### 11.H5的离线存储
-
-离线存储指的是：在用户没有与因特网连接时，可以正常访问站点或应用，在用户与因特网连接时，更新用户机器上的缓存文件。
-
-**原理：**HTML5的**离线存储**是基于一个新建的 `.appcache` 文件的缓存机制(不是存储技术)，通过这个文件上的**解析清单离线存储资源**，这些资源就会像cookie一样被存储了下来。之后当网络在处于离线状态下时，浏览器会通过被离线存储的数据进行页面展示
-
-**使用方法：** （1）创建一个和 html 同名的 manifest 文件，然后在页面头部加入 manifest 属性：
-
-```html
-<html lang="en" manifest="index.manifest">
-```
-
-（2）在 `cache.manifest` 文件中编写需要离线存储的资源：
-
-```js
-CACHE MANIFEST
-    #v0.11
-    CACHE:
-    js/app.js
-    css/style.css
-    NETWORK:
-    resourse/logo.png
-    FALLBACK:
-    / /offline.html
-```
-
-- **CACHE**: 表示需要离线存储的资源列表，由于包含 manifest 文件的页面将被自动离线存储，所以不需要把页面自身也列出来。
-- **NETWORK**: 表示在它下面列出来的资源只有在在线的情况下才能访问，他们不会被离线存储，所以在离线情况下无法使用这些资源。不过，如果在 CACHE 和 NETWORK 中有一个相同的资源，那么这个资源还是会被离线存储，也就是说 CACHE 的优先级更高。
-- **FALLBACK**: 表示如果访问第一个资源失败，那么就使用第二个资源来替换他，比如上面这个文件表示的就是如果访问根目录下任何一个资源失败了，那么就去访问 offline.html 。
-
-（3）在离线状态时，操作 `window.applicationCache` 进行离线缓存的操作。
-
-**如何更新缓存：**
-
-（1）更新 manifest 文件
-
-（2）通过 javascript 操作
-
-（3）清除浏览器缓存
-
-**浏览器是怎么对`HTML5`的离线储存资源进行管理和加载的呢**
-
-- 在线的情况下，浏览器发现`html`头部有`manifest`属性，它会请求`manifest`文件，如果是第一次访问`app`，那么浏览器就会根据manifest文件的内容下载相应的资源并且进行离线存储。如果已经访问过`app`并且资源已经离线存储了，那么浏览器就会使用离线的资源加载页面，然后浏览器会对比新的`manifest`文件与旧的`manifest`文件，如果文件没有发生改变，就不做任何操作，如果文件改变了，那么就会重新下载文件中的资源并进行离线存储。
-- 离线的情况下，浏览器就直接使用离线存储的资源。
-
-### 12.drag API
-
-一个典型的拖放操作是这样的：用户选中一个**可拖拽的(draggable)** 元素，并将其拖拽（鼠标不放开）到一个**可放置的(droppable)** 元素，然后释放鼠标。
-
-1. 可以通过给标签设置`draggable`属性来实现元素的拖拽，`img和a标签`默认是可以拖拽的
-2. 拖拽者身上的三个事件：`ondragstart`、`ondrag`、`ondragend`
-3. 拖拽要放到的元素：`ondragenter`、`ondragover`、`ondragleave`、`ondrap`
-
-在这个过程中，最重要的三个点是：
-
-- 让元素可拖拽
-- 让另一个元素支持可放置
-- 可拖拽和可放置元素之间的数据传递
-- dragstart：事件主体是被拖放元素，在开始拖放被拖放元素时触发。
-- darg：事件主体是被拖放元素，在正在拖放被拖放元素时触发。
-- dragenter：事件主体是目标元素，在被拖放元素进入某元素时触发。
-- dragover：事件主体是目标元素，在被拖放在某元素内移动时触发。
-- dragleave：事件主体是目标元素，在被拖放元素移出目标元素是触发。
-- drop：事件主体是目标元素，在目标元素完全接受被拖放元素时触发。
-- dragend：事件主体是被拖放元素，在整个拖放操作结束时触发。
-
->选中 --->  拖动  ---> 释放
-
-拖动事件：dragstart、drag、dragend
-
-放置事件：dragenter、dragover、drop
-
-拖拽事件流：当拖动一个元素放置到目标元素上的时候将会按照如下顺序依次触发dragstart->drag->dragenter->dragover->drop->dragend
-
-#### 选中
-
-在HTML5标准中，为了使元素可拖动，把draggable属性设置为true。
-文本、图片和链接是默认可以拖放的，它们的draggable属性自动被设置成了true。
-图片和链接按住鼠标左键选中，就可以拖放。
-文本只有在被选中的情况下才能拖放。如果显示设置文本的draggable属性为true，按住鼠标左键也可以直接拖放。
-
-draggable属性：设置元素是否可拖动。语法：`<element draggable="true | false | auto" >`
-
-- true: 可以拖动  
-- false: 禁止拖动  
-- auto: 跟随浏览器定义是否可以拖动  
-
-#### 拖动
-
-每一个可拖动的元素，在拖动过程中，都会经历三个过程，`拖动开始`-->`拖动过程中`--> `拖动结束`。
-
-| 针对对象     | 事件名称  | 说明                                             |
-| ------------ | --------- | ------------------------------------------------ |
-| 被拖动的元素 | dragstart | 在元素开始被拖动时候触发                         |
-|              | drag      | 在元素被拖动时反复触发                           |
-|              | dragend   | 在拖动操作完成时触发                             |
-|              |           |                                                  |
-| 目的地对象   | dragenter | 当被拖动元素进入目的地元素所占据的屏幕空间时触发 |
-|              | dragover  | 当被拖动元素在目的地元素内时触发                 |
-|              | dragleave | 当被拖动元素没有放下就离开目的地元素时触发       |
-
-dragenter和dragover事件的默认行为是拒绝接受任何被拖放的元素。因此，我们必须阻止浏览器这种默认行为。e.preventDefault();
-
-#### 释放
-
-到达目的地之后，释放元素事件
-
-| 针对对象   | 事件名称 | 说明                                                         |
-| ---------- | -------- | ------------------------------------------------------------ |
-| 目的地对象 | drop     | 当被拖动元素在目的地元素里放下时触发，一般需要取消浏览器的默认行为。 |
-
-
-
-### 13.H5有那些新特性
-
-#### 1. 语义化标签
-
-- header：定义文档的页眉（头部）；
-- nav：定义导航链接的部分；
-- footer：定义文档或节的页脚（底部）；
-- article：定义文章内容；
-- section：定义文档中的节（section、区段）；
-- aside：定义其所处内容之外的内容（侧边）；
-
-#### 2. 媒体标签
-
-（1） audio：音频
-
-```html
-<audio src='' controls autoplay loop='true'></audio>
-```
-
-属性：
-
-- controls 控制面板
-- autoplay 自动播放
-- loop=‘true’ 循环播放
-
-（2）video视频
-
-```html
-<video src='' poster='imgs/aa.jpg' controls></video>
-```
-
-属性：
-
-- poster：指定视频还没有完全下载完毕，或者用户还没有点击播放前显示的封面。默认显示当前视频文件的第一针画面，当然通过poster也可以自己指定。
-- controls 控制面板
-- width
-- height
-
-（3）source标签 因为浏览器对视频格式支持程度不一样，为了能够兼容不同的浏览器，可以通过source来指定视频源。
-
-```html
-<video>
- 	<source src='aa.flv' type='video/flv'></source>
- 	<source src='aa.mp4' type='video/mp4'></source>
-</video>
-```
-
-#### 3. 表单(input)
-
-**表单类型：**
-
-- email ：能够验证当前输入的邮箱地址是否合法
-- url ： 验证URL
-- number ： 只能输入数字，其他输入不了，而且自带上下增大减小箭头，max属性可以设置为最大值，min可以设置为最小值，value为默认值。
-- search ： 输入框后面会给提供一个小叉，可以删除输入的内容，更加人性化。
-- range ： 可以提供给一个范围，其中可以设置max和min以及value，其中value属性可以设置为默认值
-- color ： 提供了一个颜色拾取器
-- time ： 时分秒
-- data ： 日期选择年月日
-- datatime ： 时间和日期(目前只有Safari支持)
-- datatime-local ：日期时间控件
-- week ：周控件
-- month：月控件
-
-**表单属性：**
-
-- placeholder ：提示信息
-- autofocus ：自动获取焦点
-- autocomplete=“on” 或者 autocomplete=“off” 使用这个属性需要有两个前提：
-  - 表单必须提交过
-  - 必须有name属性。
-- required：要求输入框不能为空，必须有值才能够提交。
-- pattern=" " 里面写入想要的正则模式，例如手机号patte="^(+86)?\d{10}$"
-- multiple：可以选择多个文件或者多个邮箱
-- form=" form表单的ID"
-
-**表单事件：**
-
-- oninput 每当input里的输入框内容发生变化都会触发此事件。
-- oninvalid 当验证不通过时触发此事件。
-
-#### 4. 进度条、度量器
-
-- progress标签：用来表示任务的进度（IE、Safari不支持），max用来表示任务的进度，value表示已完成多少
-- meter属性：用来显示剩余容量或剩余库存（IE、Safari不支持）
-  - high/low：规定被视作高/低的范围
-  - max/min：规定最大/小值
-  - value：规定当前度量值
-
-设置规则：min < low < high < max
-
-#### 5. DOM查询操作
-
-- document.querySelector()
-- document.querySelectorAll()
-
-它们选择的对象可以是标签，可以是类(需要加点)，可以是ID(需要加#)
-
-#### 6. Web存储
-
-HTML5 提供了两种在客户端存储数据的新方法：
-
-- localStorage - 没有时间限制的数据存储
-- sessionStorage - 针对一个 session 的数据存储
-
-#### 7. 其他
-
-- 拖放：拖放是一种常见的特性，即抓取对象以后拖到另一个位置。设置元素可拖放：
-
-```html
-<img draggable="true" />
-```
-
-- 画布（canvas ）： canvas 元素使用 JavaScript 在网页上绘制图像。画布是一个矩形区域，可以控制其每一像素。canvas 拥有多种绘制路径、矩形、圆形、字符以及添加图像的方法。
-
-```html
-<canvas id="myCanvas" width="200" height="100"></canvas>
-```
-
-- SVG：SVG 指可伸缩矢量图形，用于定义用于网络的基于矢量的图形，使用 XML 格式定义图形，图像在放大或改变尺寸的情况下其图形质量不会有损失，它是万维网联盟的标准
-- 地理定位：Geolocation（地理定位）用于定位用户的位置。‘
-
-**总结：** 
-
-**（1）新增语义化标签：nav、header、footer、aside、section、article** 
-
-**（2）音频、视频标签：audio、video** 
-
-**（3）数据存储：localStorage、sessionStorage** 
-
-**（4）canvas（画布）、Geolocation（地理定位）、websocket（通信协议）**
-
- **（5）input标签新增属性：placeholder、autocomplete、autofocus、required** 
-
-**（6）history API：go、forward、back、pushstate**
-
-- 移除的元素：
-    - 纯表现的元素：`basefont`、`big`、`center`、`font`、 `s`、`strike`、`tt`、`u`
-    - 对可用性产生负面影响的元素：`frame`、`frameset`、`noframes`
-- 支持`HTML5`新标签：
-    - `IE8/IE7/IE6`支持通过`document.createElement`方法产生的标签
-    - 可以利用这一特性让这些浏览器支持`HTML5`新标签
-    - 浏览器支持新标签后，还需要添加标签默认的样式
-- 当然也可以直接使用成熟的框架、比如`html5shim`
-
-### 14.SEO的概念以及如何实现
-
-#### 一、搜索引擎工作原理
-
-在搜索引擎网站的后台会有一个非常庞大的数据库，里面存储了海量的关键词，而每个关键词又对应着很多网址，这些网址是被称之为“搜索引擎蜘蛛”或“网络爬虫”程序从茫茫的互联网上一点一点下载收集而来的。随着各种各样网站的出现，这些勤劳的“蜘蛛”每天在互联网上爬行，从一个链接到另一个链接，下载其中的内容，进行分析提炼，找到其中的关键词，如果“蜘蛛”认为关键词在数据库中没有而对用户是有用的便存入后台的数据库中。反之，如果“蜘蛛”认为是垃圾信息或重复信息，就舍弃不要，继续爬行，寻找最新的、有用的信息保存起来提供用户搜索。当用户搜索时，就能检索出与关键字相关的网址显示给访客。
-
-一个关键词对用多个网址，因此就出现了排序的问题，相应的当与关键词最吻合的网址就会排在前面了。在“蜘蛛”抓取网页内容，提炼关键词的这个过程中，就存在一个问题：“蜘蛛”能否看懂。如果网站内容是flash和js等，那么它是看不懂的，会犯迷糊，即使关键字再贴切也没用。相应的，如果网站内容可以被搜索引擎能识别，那么搜索引擎就会提高该网站的权重，增加对该网站的友好度。这样一个过程我们称之为SEO。
-
-#### 二、SEO简介
-
-SEO(Search Engine Optimization)，即搜索引擎优化。SEO是随着搜索引擎的出现而来的，两者是相互促进，互利共生的关系。SEO的存在就是为了提升网页在搜索引擎自然搜索结果中的收录数量以及排序位置而做的优化行为。而优化的目的就是为了提升网站在搜索引擎中的权重，增加对搜索引擎的友好度，使得用户在访问网站时能排在前面。
-
-分类：白帽SEO和黑帽SEO。白帽SEO，起到了改良和规范网站设计的作用，使网站对搜索引擎和用户更加友好，并且网站也能从搜索引擎中获取合理的流量，这是搜索引擎鼓励和支持的。黑帽SEO，利用和放大搜索引擎政策缺陷来获取更多用户的访问量，这类行为大多是欺骗搜索引擎，一般搜索引擎公司是不支持与鼓励的。本文针对白帽SEO，那么白帽SEO能做什么呢？
-
-1.对网站的标题、关键字、描述精心设置，反映网站的定位，让搜索引擎明白网站是做什么的；
-
-2.网站内容优化：内容与关键字的对应，增加关键字的密度；
-
-3.在网站上合理设置Robots.txt文件；
-
-4.生成针对搜索引擎友好的网站地图；
-
-5.增加外部链接，到各个网站上宣传。
-
-#### 三、为什么要做SEO
-
-提高网站的权重，增强搜索引擎友好度，以达到提高排名，增加流量，改善（潜在）用户体验，促进销售的作用。
-
-#### 四、前端SEO规范
-
-前端是构建网站中很重要的一个环节，前端的工作主要是负责页面的HTML+CSS+JS，优化好这几个方面会为SEO工作打好一个坚实的基础。通过网站的结构布局设计和网页代码优化，使前端页面既能让浏览器用户能够看懂（提升用户体验），也能让“蜘蛛”看懂（提高搜索引擎友好度）。
-
-前端SEO注意事项：
-
-1、网站结构布局优化：尽量简单、开门见山，提倡扁平化结构
-
-一般而言，建立的网站结构层次越少，越容易被“蜘蛛”抓取，也就容易被收录。一般中小型网站目录结构超过三级，“蜘蛛”便不愿意往下爬了。并且根据相关数据调查：如果访客经过跳转3次还没找到需要的信息，很可能离开。因此，三层目录结构也是体验的需要。为此我们需要做到：
-
-（1）控制首页链接数量
-
-网站首页是权重最高的地方，如果首页链接太少，没有“桥”，“蜘蛛”不能继续往下爬到内页，直接影响网站收录数量。但是首页链接也不能太多，一旦太多，没有实质性的链接，很容易影响用户体验，也会降低网站首页的权重，收录效果也不好。
-
-（2）扁平化的目录层次
-
-尽量让“蜘蛛”只要跳转3次，就能到达网站内的任何一个内页。
-
-（3）导航优化
-
-导航应该尽量采用文字方式，也可以搭配图片导航，但是图片代码一定要进行优化，标签必须添加“alt”和“title”属性，告诉搜索引擎导航的定位，做到即使图片未能正常显示时，用户也能看到提示文字。
-
-其次，在每一个网页上应该加上面包屑导航，好处：从用户体验方面来说，可以让用户了解当前所处的位置以及当前页面在整个网站中的位置，帮助用户很快了解网站组织形式，从而形成更好的位置感，同时提供了返回各个页面的接口，方便用户操作；对“蜘蛛”而言，能够清楚的了解网站结构，同时还增加了大量的内部链接，方便抓取，降低跳出率。
-
-（4）网站的结构布局---不可忽略的细节
-
-页面头部：logo及主导航，以及用户的信息。
-
-页面主体：左边正文，包括面包屑导航及正文；右边放热门文章及相关文章，好处：留住访客，让访客多停留，对“蜘蛛”而言，这些文章属于相关链接，增强了页面相关性，也能增强页面的权重。
-
-页面底部：版权信息和友情链接。
-
-特别注意：分页导航写法，推荐写法：“首页 1 2 3 4 5 6 7 8 9 下拉框”，这样“蜘蛛”能够根据相应页码直接跳转，下拉框直接选择页面跳转。而下面的写法是不推荐的，“首页 下一页 尾页”，特别是当分页数量特别多时，“蜘蛛”需要经过很多次往下爬，才能抓取，会很累、会容易放弃。
-
-（5）利用布局，把重要内容HTML代码放在最前
-
-搜索引擎抓取HTML内容是从上到下，利用这一特点，可以让主要代码优先读取，广告等不重要代码放在下边。例如，在左栏和右栏的代码不变的情况下，只需改一下样式，利用float:left;和float:right;就可以随意让两栏在展现上位置互换，这样就可以保证重要代码在最前，让爬虫最先抓取。同样也适用于多栏的情况。
-
-（6）控制页面的大小，减少http请求，提高网站的加载速度。
-
-一个页面最好不要超过100k，太大，页面加载速度慢。当速度很慢时，用户体验不好，留不住访客，并且一旦超时，“蜘蛛”也会离开。
-
-2、网页代码优化
-
-（1）突出重要内容---合理的设计title、description和keywords
-
-标题：只强调重点即可，尽量把重要的关键词放在前面，关键词不要重复出现，尽量做到每个页面的`title`标题中不要设置相同的内容。 标签：关键词，列举出几个页面的重要关键字即可，切记过分堆砌。
-
-标签：网页描述，需要高度概括网页内容，切记不能太长，过分堆砌关键词，每个页面也要有所不同。
-
-（2）语义化书写HTML代码，符合W3C标准
-
-尽量让代码语义化，在适当的位置使用适当的标签，用正确的标签做正确的事。让阅读源码者和“蜘蛛”都一目了然。比如：h1-h6 是用于标题类的，
-
-标签是用来设置页面主导航，列表形式的代码使用ul或ol，重要的文字使用strong等。
-
-（3）标签：页内链接，要加 “title” 属性加以说明，让访客和 “蜘蛛” 知道。而外部链接，链接到其他网站的，则需要加上 el="nofollow" 属性, 告诉 “蜘蛛” 不要爬，因为一旦“蜘蛛”爬了外部链接之后，就不会再回来了。
-
-==`<a href="https://www.360.cn" title="360安全中心" class="logo"></a>`== 
-
-（4）正文标题要用标签：h1标签自带权重“蜘蛛” 认为它最重要，一个页面有且最多只能有一个H1标签，放在该页面最重要的标题上面，如首页的logo上可以加H1标签。副标题用标签, 而其它地方不应该随便乱用 h 标题标签。
-
-（5）应使用 "alt" 属性加以说明当网络速度很慢，或者图片地址失效的时候，就可以体现出alt属性的作用，他可以让用户在图片没有显示的时候知道这个图片的作用。同时为图片设置高度和宽度，可提高页面的加载速度。
-
-（6）表格应该使用表格标题标签caption 元素定义表格标题。caption 标签必须紧随 table 标签之后，您只能对每个表格定义一个表格标题                           
-
-（7） 标签：只用于文本内容的换行，比如：      第一行文字内容     第二行文字内容     第三行文字内容  
-
-（8）标签 ：需要强调时使用。动态地址：`www.360.cn/index.php`
-
-伪静态地址：`www.360.cn/index.html`
-
-结束语：正确认识SEO，不过分SEO，网站还是以内容为主。
-
-### 15.HTML渲染优化
-
-- 禁止使用`iframe`（阻塞父文档`onload`事件）
-    - `iframe`会阻塞主页面的`Onload`事件
-    - 搜索引擎的检索程序无法解读这种页面，不利于SEO
-    - `iframe`和主页面共享连接池，而浏览器对相同域的连接有限制，所以会影响页面的并行加载
-    - 使用`iframe`之前需要考虑这两个缺点。如果需要使用`iframe`，最好是通过`javascript`
-    - 动态给`iframe`添加`src`属性值，这样可以绕开以上两个问题
-- 禁止使用`gif`图片实现`loading`效果（降低`CPU`消耗，提升渲染性能）
-- 使用`CSS3`代码代替`JS`动画（尽可能避免重绘重排以及回流）
-- 对于一些小图标，可以使用base64位编码，以减少网络请求。但不建议大图使用，比较耗费`CPU`
-    - 小图标优势在于
-        - 减少`HTTP`请求
-        - 避免文件跨域
-        - 修改及时生效
-- 页面头部的`<style></style>` `<script></script>` 会阻塞页面；（因为 `Renderer`进程中 `JS`线程和渲染线程是互斥的）
-- 页面中空的 `href` 和 `src` 会阻塞页面其他资源的加载 (阻塞下载进程)
-- 网页`gzip`，`CDN`托管，`data`缓存 ，图片服务器
-- 前端模板 JS+数据，减少由于`HTML`标签导致的带宽浪费，前端用变量保存AJAX请求结果，每次操作本地变量，不用请求，减少请求次数
-- 用`innerHTML`代替`DOM`操作，减少`DOM`操作次数，优化`javascript`性能
-- 当需要设置的样式很多时设置`className`而不是直接操作`style`
-- 少用全局变量、缓存`DOM`节点查找的结果。减少`IO`读取操作
-- 图片预加载，将样式表放在顶部，将脚本放在底部 加上时间戳
-- 对普通的网站有一个统一的思路，就是尽量向前端优化、减少数据库操作、减少磁盘`IO`
+详细资料可以参考：
+[《协议相对 URL》](https://www.ludou.org/the-protocol-relative-url.html)
+[《Why you need protocol-relative URLs _now_》](https://www.tuicool.com/articles/nEjU7b)
